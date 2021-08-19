@@ -1,0 +1,18 @@
+name: "dku-stats-101"
+navbar:
+  title: "DKU Stats 101 - Fall 2021"
+  left:
+    - text: "Course Schedule"
+      href: index.html
+    - text: "Course Policies"
+      href: coursepolicies.html
+    - text: "Lecture & Lab Materials"
+      href: lecturelab.html
+    - text: "Homework"
+      href: homework.html
+    - text: "R Help Manual"
+      href: "rmanual.html"
+      
+  right: 
+    - icon: fa-github fa-lg
+      href: https://github.com/andrewmacd/dkustats101fall2021

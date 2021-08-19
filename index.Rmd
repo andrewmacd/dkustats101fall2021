@@ -1,30 +1,258 @@
 ---
-title: "Course Schedule"
-author: "Andrew MacDonald"
-date: "8/19/2021"
-output: html_document
+title: "Course Introduction and Schedule"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Course at a glance
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Course description
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+How can we use data to shed light on age-old and new human problems such as pollution, discrimination, and economic growth? How can we be “sure” that the evidence we have points us in the right direction? How meaningful are our findings? Do our results suggest the relationships we find between factors such smoking and cancer are meaningful or meaningless? How would we know? How should one properly display and explain your statistical results to these important issues?
 
-```{r cars}
-summary(cars)
-```
+This class introduces you to the tools and concepts that begin to tackle these questions. We will cover topics such as data summaries, sampling, data analysis, production of graphical displays, and regression techniques. The goal at the end of the course is that you will be able to conduct basic data manipulation, know how to properly summarize and display data, and make basic statistical inferences using real datasets. 
 
-## Including Plots
+The emphasis in the course will not be on learning mathematical formulas related to statistics but rather to develop an intuitive understanding of statistical inference and measures of uncertainty. For those interested in developing this intuitive understanding of statistics in a more rigorous way, you may also consider taking the following courses:
 
-You can also embed plots, for example:
+- Math 205: the mathematical foundations of statistics
+- Econ 203: advanced study of modern regression techniques
+- Social Sciences 350: advanced statistical techniques applied to real-world problems
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+A third set of goals for the course is that you will also be able to read more fluently research literature that employs statistics. During this course I will reference, in class, a number of historically important academic articles and we will analyze the data from those articles. Doing so should help you understand how data is used (and misused) to construct social science arguments.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Course schedule
+
+Important: class schedule is subject to change, contingent on mitigating circumstances and the progress we make as a class. If there are any changes, I will announce them on Slack. For our [readings](#required-texts), IS stands for Intro Stats and NS stands for Naked Statistics
+
+## Unit 1: Distributions
+
+### Thursday, January 7th: Class Welcome @8:10 pm China time
+
+> Reading to do before class: IS Chapter 1, 2.1 and 2.2, and 3
+
+>Topics covered:
+>
+>-	What are data and variables?
+>-	How to display quantitative and qualitative variables
+>-	Contingency tables
+
+>**Labs Due on Sunday, January 10th @ 11:59 pm China time:** 
+>
+>1. [Introduction to R](https://learn.datacamp.com/courses/free-introduction-to-r)
+>2. [Introduction to the Tidyverse](https://learn.datacamp.com/courses/introduction-to-the-tidyverse)
+
+### Tuesday, January 12: Characteristics of Distributions @8:10 pm China time
+
+> Reading to do before class: IS Chapter 2.3-5 and 4, NS Chapter 2
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- How to describe the shape, center, and spread of a distribution
+>- How to compare distributions
+>- Dealing with problem distributions (outliers, reexpression)
+
+### Thursday, January 14: The Normal Distribution @8:10 pm China time
+
+> Reading to do before class: IS Chapter 5, NS Chapter 3
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- Standard deviation and standardizing values
+>- Normal models
+>- Normal percentiles
+
+>**Labs Due on Friday, January 15 at 11:59 pm China time:**  
+>
+>- [Exploratory Data Analysis in R](https://learn.datacamp.com/courses/exploratory-data-analysis-in-r) 
+>- [Introduction to Data Visualization with ggplot2](https://learn.datacamp.com/courses/introduction-to-data-visualization-with-ggplot2) 
+
+>**[Homework 1 check](https://sakai.duke.edu/x/6Ej11G) Due Sunday, January 17th at 11:59 pm China time**
+
+## Unit 2: Relationships Between Variables
+
+### Tuesday, January 19: Association and Correlation @8:10 pm China time
+
+> Reading to do before class: IS Chapter 6
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- Scatterplots
+>- Correlations
+>- Does correlation imply causation?
+
+### Thursday, January 21: Simple Linear Regression @8:10 pm China time
+
+> Reading to do before class: IS Chapter 7, NS Chapter 11
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- Line of best fit: least squares
+>- The linear model
+>- What are residuals
+>- Regression assumptions
+
+>**Labs Due on Friday, January 22nd at 11:59 pm China time:** 
+>
+>- [Correlation and Regression in R, chapters 1-4](https://learn.datacamp.com/courses/correlation-and-regression-in-r)
+
+>**[Homework 1](https://sakai.duke.edu/x/6Ej11G) Due Sunday, January 24th at 11:59 pm China time**
+
+### Tuesday, January 26: Regression Wisdom @8:10 pm China time
+
+> Reading to do before class: IS Chapter 8, NS Chapter 7
+
+> Preclass quiz due at 8:00 pm China time China time
+
+>Topics covered:
+>
+>- Beware extrapolation
+>- Outliers and leverage
+>- Lurking variables
+>- Straightening scatterplots
+
+### Thursday, January 28: Multiple Regression @8:10 pm China time
+
+> Reading to do before class: IS Chapter 9
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- What is multiple regression?
+>- Interpreting multiple regression coefficients
+>- Partial regression plots
+>- Indicator variables
+
+>**Labs Due on Friday, January 29th at 11:59 pm China time:** 
+>
+>- [Correlation and Regression in R, chapter 5](https://learn.datacamp.com/courses/correlation-and-regression-in-r)
+>- [Multiple and Logistic Regression in R, chapters 1, 2, 3 and 5](https://learn.datacamp.com/courses/multiple-and-logistic-regression-in-r)
+
+**[Midterm Project](https://sakai.duke.edu/x/6Ej11G) Due on January 31st at 11:59 pm China time**
+
+## Unit 3: Measuring Uncertainty
+
+### Tuesday, February 2: Confidence Intervals - Proportions @8:10 pm China time
+
+> Reading to do before class: IS Chapter 13, NS Chapters 8 and 10
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- What is a sampling distribution?
+>- When does the normal model apply?
+>- Constructing a confidence interval
+>- Interpreting a confidence interval
+
+### Thursday, February 4: Confidence Intervals - Means @8:10 pm China time
+
+> Reading to do before class: IS Chapter 14
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- The Central Limit Theorem
+>- Confidence interval for means
+>- Interpreting a confidence interval
+>- Final thoughts on confidence intervals
+
+>**Lab Due on Friday, February 5th at 11:59 pm China time:** 
+>
+>- [Inference for Categorical Data in R, chapter 1](https://learn.datacamp.com/courses/inference-for-categorical-data-in-r)
+
+>**[Homework 2 check](https://sakai.duke.edu/x/6Ej11G) Due Sunday, February 7th at 11:59 pm China time**
+
+### Tuesday, February 9: Hypothesis Testing @8:10 pm China time
+
+> Reading to do before class: IS Chapter 15, NS Chapter 9
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- What are hypotheses?
+>- P-values
+>- P-values and decisions – how to make a decision
+
+**Chinese New Year Break Feb 10 – 21**
+
+### Tuesday, February 23: Hypothesis Testing Wisdom @8:10 pm China time
+
+> Reading to do before class: IS Chapter 16, NS Chapter 9
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- Interpreting p-values
+>- Alpha and critical values
+>- Practical vs. statistical significance
+>- Type I and II errors
+>- Power of a test
+
+## Unit 4: Statistical Inference
+
+### Thursday, Feburary 25: Comparing Groups @8:10 pm China time
+
+> Reading to do before class: IS Chapter 17
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- Confidence intervals for comparing two samples
+>- Assumptions and conditions for two-sample hypothesis tests
+>- Two-sample z test
+>- Two-sample t test
+
+>**Lab Due on Friday, February 26th at 11:59 pm China time:** 
+>
+>- [Foundations of Inference, chapters 1, 2, and 3](https://learn.datacamp.com/courses/foundations-of-inference-in-r)
+
+>**[Homework 2](https://sakai.duke.edu/x/6Ej11G) Due Sunday, February 28th at 11:59 pm China time**
+
+### Tuesday, March 2nd: Returning to Regression @8:10 pm China time
+
+> Reading to do before class: IS Chapter 20, NS Chapter 12
+
+> Preclass quiz due at 8:00 pm China time
+
+>Topics covered:
+>
+>- Regression inference and intuition
+>- The regression table
+>- Confidence and prediction intervals
+
+### Thursday, March 4th: Regression in Practice @8:10 pm China time
+
+> Reading to do before class: TBD
+
+> No preclass quiz
+
+>Topics covered:
+>
+>- How to read academic statistical results
+>- Locating the model
+>- Interpreting the test
+>- Understanding possible weaknesses of the model
+
+>**Lab Due on Friday, March 5th at 11:59 pm China time:**  
+>
+>- [Inference for Linear Regression in R](https://learn.datacamp.com/courses/inference-for-linear-regression-in-r)
+
+>**[Paper Analysis](https://sakai.duke.edu/x/6Ej11G) Due Sunday, March 7th at 11:59 pm China time**
+>
+
+**[Final Project](https://sakai.duke.edu/x/6Ej11G) Due on Thursday, March 11th at 11:59 pm China Time**

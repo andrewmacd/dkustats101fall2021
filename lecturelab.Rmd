@@ -1,8 +1,6 @@
 ---
 title: "Lecture & Lab Materials"
 author: "Andrew MacDonald"
-date: "8/19/2021"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}

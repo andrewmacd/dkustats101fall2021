@@ -1,30 +1,141 @@
 ---
 title: "Course Policies"
-author: "Andrew MacDonald"
-date: "8/19/2021"
-output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE, cache=F, message=F, warning=F, results="hide"}
+knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(fig.path='figs/')
+knitr::opts_chunk$set(warning=F, message=F)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r dates_bib, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE, dev='pdf')
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+library(RefManageR)
 
-```{r cars}
-summary(cars)
+bib <- ReadBib("data/master.bib", check="error")
 ```
 
-## Including Plots
+# Course Objectives
 
-You can also embed plots, for example:
+Upon completing the course, you will develop the following abilities:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+1. Intuitively interpret statistics in course materials and in the larger world
+2. Become a statistics results producer in addition to a statistics consumer
+3. Assess when and how to use statistics to answer specific questions in the social sciences
+4. Analyze how previously learned problems can be answered with statistical methods
+5. Apply statistical methods to future social science coursework and capstone project
+6. Judge how appropriately statistics are used in everyday life when reading the news, business reports, and other real-world applications
+
+In support of this you will be able to:
+
+- Understand and interpret basic statistical properties of data (confidence intervals, t-tests, etc.)
+- Identify when various statistical tests are appropriate given a specific dataset
+- Formulate testable hypotheses in the data and learn how to execute those tests
+- Interpret statistical results to understand both significance of the results and their substantive impact
+- Illustrate statistical results with appropriate and clear graphical displays that provide meaning to the reader
+- Evaluate critically other, published, statistical work with the skills and techniques learned in class
+- Propose an independent research project that integrates statistical methods with their research interest for their capstone project
+
+# Course Structure
+
+Because of our unusual calendar this term, the course structure is going to be a little flexible - please bear with me as we make it through this term. All changes to the usual course schedule will be announced on Slack.
+
+*In general*, each week will proceed roughly as follows:
+
+- Monday-Tuesday: Read the textbook chapter, do the Sakai quiz online, make progress on the DataCamp lab(s)
+  + **Tuesday 8:10 pm-9:20 pm** (China time): Zoom session with a conceptual review of the chapter material (will not be a repetition of the textbook)
+- Wednesday 2:45 pm-5:00 pm: Professor Santoso will lead a lab session that expands upon material presented in the text and in lectures. If you are not in Kunshan, you will be paired up with a partner to complete the lab at your own schedule and then meet with Professor MacDonald once a week to discuss your results.
+- Wednesday-Thursday: Read the textbook chapter, do the Sakai quiz online, make progress on the DataCamp lab(s)
+  + **Thursday 8:10 pm-9:20 pm** (China time): Second weekly Zoom session
+- Friday: Complete DataCamp lab(s) before **midnight**, China time
+- Saturday-Sunday: Complete the homework that is due before **midnight** on Sunday, China time
+
+# How to Prepare
+
+We will be using four different online tools for this class, you will need to sign up for two of these tools. Our main class hub will be on Slack, where I will provide appropriate links for when you need to use the other tools.
+
+1. [Slack](https://join.slack.com/t/dkustats101sp-cgk5250/shared_invite/zt-kfidouhy-vIUApdQ96_iboVmUZBFwDg): Slack works a bit like WeChat and a bit like Sakai and is perfect for collaboration. I encourage you to post often on Slack, including interesting statistical things you find in the world, questions about statistics you see in the news, and any other thoughts you have. Make sure to fill out your profile and upload a profile picture so we can keep track of who you are!
+2. [R and RStudio](https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu): These software packages that implement the R statistical programming language are free and very popular tools for conducting statistical investigations, including all of the homeworks for this class.
+    - [R Markdown](https://rmarkdown.rstudio.com/docs/): R Markdown is a flexible document creation library that allows you to create nice looking documents that easily mix text and R code output (I made this syllabus with R Markdown). All your homeworks, midterm, and final projects will be written inside of R Markdown documents. Instructions on how to use the R Markdown syntax will be provided with the first homework assignment.
+3. [DataCamp](https://www.datacamp.com/groups/shared_links/32048b66071f0fa4ec17774eefad7e4ccfc51746a27b7e2d8c6b69b82bf7901b): DataCamp has a lot of very useful tutorials that will help you learn how to code in R. 
+3. [Sakai](https://sakai.duke.edu/x/Cc2SLm): Sakai will only be used to submit assignments and quizzes. All other course information will be hosted on Slack.
+4. [Zoom](https://duke.zoom.us): By now all of you should have some experience using Zoom. 
+
+# Required Texts
+
+```{r, echo = FALSE, results="asis"} 
+knitr::opts_chunk$set(cache=FALSE, dev='pdf')
+
+bib["de_veaux_intro_2018", "wheelan_naked_2014"]
+``` 
+
+# Course Policy
+
+I will detail the policy for this course below. Basically, try to learn stuff, don't cheat, and be active in class and things should go just fine for you.
+
+## Assessment
+
+- Pre-class Warmup Quiz **10%**: Before each Zoom session there will be a series of short online questions to prepare you for the day’s material. Completing them before class is mandatory. I will drop your lowest quiz grade.
+
+- Homework **25%**: At the end of a group of content, a comprehensive homework will be assigned that will ask you to analyze a dataset and answer questions related to that concept group. These homeworks are always due the Sunday after assigned at 11:59 pm China time. Each homework/midterm will also have a best graph contest, where the person whose classmates vote as having the best graph wins some extra credit points. **Due on January 24th and on February 28th**
+
+- Homework checks **5%**: To make sure you are making good progress on your homework, the Sunday before the homework is due you will be required to submit your progress on the homework so far. You are required to have tried to have answered all the questions covered by the lectures and textbook up to that Sunday. I will not check your answers but rather check to see if you have made a good effort to answer all the questions derived from the material already covered. If you have a reasonable answer for each question checked you will get full points. If you have not made an effort to answer all the questions reviewed you will get a zero.
+
+- Paper Analysis **5%**: At the end of the term, you will select a news article and then do some research on the underlying statistics presented in the news article, critiquing if the news article accurately represented the study reference in the article. **Due on March 7th**
+
+- Midterm Project **15%**: In the middle of the term, after the first half of the course content, you will asked to write an analysis of a dataset. This paper should use all of knowledge from the first half of class to develop some conclusions developed from the data and should be about 1500 words. **Due January 31st**
+
+- Final Project **25%**: Similar to the midterm project, the final exam will ask you to analyze a dataset using all the strategies we have learned in class. However, for this assignment you will choose your own dataset, ask your own questions of the data, and attempt to answer those questions as best as you can. The paper for this project should be about 2000 words. **Due on March 11th**
+
+- Data Camp Labs **5%**: A number of labs on the website Data Camp will be assigned to you; these labs are pass/fail and you will receive full credit if you complete each of the labs by the specified due date.
+
+- Participation **10%**: As discussed in [the attendance policy section](#attendance-policy), class attendance is important. So is participating in the discussions on Slack. If you attend all the course meetings but do not actively participate on Slack, you can expect a B/B+ participation grade. Receiving an A grade for participation requires that you come to every class and actively participate in Slack (help other students, ask questions, comment on other's posts and so on).
+
+## Attendance Policy
+
+```{r, include=FALSE}
+options(scipen=999)
+Attend <- read.csv("data/attend-grade-relationships.csv")
+M1 <- lm(rgrade ~ perattend, Attend)
+M2 <- lm(rgrade ~ perattend, data=subset(Attend, perattend >= 75))
+library(broom)
+M1df <- tidy(M1)
+M2df <- tidy(M2)
+library(ggplot2)
+library(kfigr)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+A colleague of mine ran a simple linear regression of a student's final grade on percentage of classes attended for the term for all stats classes he taught since Fall 2014 suggests an increase of one percent in attendance for the term leads to an estimated increase of `r round(M1$coefficients[2], 3)` in the student's final grade. Whereas one missed classes constitutes about a five-percent decrease in percentage attendance for the term, one missed class means an estimated decrease of `r round(M1$coefficients[2], 3)*5` in the overall grade. The effect of attendance on the final grade for the class is precise (*t* = `r round(M1df$statistic[2], 3)`) and the likelihood that there is no actual relationship between attendance and final grade for the term is almost zero. This simple linear model with just one predictor (attendance) provides a good fit as well (R$^2$ = `r round(summary(M1)$r.squared, 3)`), as illustrated in Figure 1.
+
+```{r attendplot, echo = FALSE, results="asis", cache=FALSE, fig.cap="A Scatterplot of the Relationship between Class Attendance and Final Grade", fig.height=4, fig.pos="H"}
+library(ggplot2)
+Graph <- ggplot(Attend, aes(x = perattend, y = rgrade))
+Graph + geom_point() + labs(x="Percent Attendance in Class", y="Final Grade in Class (0-100)") + 
+                              geom_smooth(method=lm) 
+```
+
+A student might object that attendance is partly endogenous as missing class results in a lower participation grade. This is true, but the findings hold even when we subset the data to cases where attendance is greater than 75%. Students who have only a few absences nevertheless get an estimated decrease of `r round(M2$coefficients[2], 3)*5` in their overall grade for each missed class. This effect is also precise (*t* = `r round(M2df$statistic[2], 3)`). Put another way, we would have observed this effect in the data if there were no *true* effect of attendance on grades about `r round(summary(M2)$coefficients[2,4]*100000)` times in 100,000 "trials" (i.e. *p* = `r round(summary(M2)$coefficients[2,4], 5)`), on average. That probability is effectively zero. *Attend class*.
+
+## Contact Policy
+
+1. I do not respond to email about class unless it is for emergency circumstances. Use Slack to DM me instead. 
+2. I usually try to reply to Slack DMs on the same day (though not in the evenings), however responses may be slower on the weekend
+3. Do not DM me 2 hours before a homework is due and expect an immediate response!
+4. For general questions, such as how should one interpret a question on a homework or quiz, you should ask the question in the appropriate Slack channel. That way others can benefit from the response or someone else may be able to answer more quickly than I can. If you DM me a question that really belongs in the help channel I will ask you to repost it.
+5. Many questions can be answered by carefully checking the syllabus or reviewing the materials pinned to the relevant Slack channel. If in doubt, though, feel free to ask.
+
+## Academic Dishonesty Policy
+
+Don’t cheat. Don’t be that person. Yes, you. You know exactly what I’m talking about too.
+
+More specifically, you are expected to strictly adhere to the Duke Kunshan University Community Standard in all of your work and participation, and violations will be enforced. More details can be found [here](https://dukekunshan.edu.cn/en/advising/academic-integrity).
+
+All work must be done exclusively by the individual to whom it has been assigned. You should assume that collaboration on assignments, the use of previously-assigned homework, quizzes and answer keys, outside sources or outside aids (both written and electronic) are not allowed unless explicitly noted in the assignment guidelines. All cases of suspected cheating will be referred for adjudication to the Dean’s Office. Any violation for which a student is found responsible is considered grounds for failure in the course. 
+
+It may sound cliché to say, but if you cheat and borrow other’s code or answers you are only cheating yourself; you will not learn how to do statistics and doing so will mean you will do worse on the midterm and the final anyway. Cheating is ultimately self-defeating so for both of our benefit, please, don’t do it. If you are having trouble completing the assignment and feel tempted to cheat, please contact me directly instead with the difficulties you are having.
+
+## Disabilities Policy
+
+If you need an accommodation due to a disability, you should not hesitate to request one. The process is that requests should be sent to the Dean of Undergraduate Studies, who will contact me with recommended type of accommodation that is needed. You do not need to disclose your reason for requesting an accommodation with me, and asking through the Dean of Undergraduate Studies helps make things official for both you and me.

@@ -1,30 +1,180 @@
 ---
 title: "R Help Manual"
-author: "Andrew MacDonald"
-date: "8/19/2021"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library(tidyverse)
 knitr::opts_chunk$set(echo = TRUE)
+
+data(mtcars)
 ```
 
-## R Markdown
+# General	
+## Install software
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Note that you must install R **before** RStudio and both programs are required
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+[R statistical package](https://cran.r-project.org/)
 
-```{r cars}
-summary(cars)
+[R Studio user interface](https://www.rstudio.com/products/rstudio/download/)
+
+## Notes on use
+
+* Case: does differentiate between uppercase and lowercase
+* Variable name: consists of letters, numbers and the dot or underline characters, and starts with a letter or the dot not followed by a number
+* Punctuation: only English punctuation is accepted
+* Pound sign: `#` leads a comment line
+* Dollar sign: `$` extracts elements by name from a named list and is often used as `<data.frame>$<column>`
+* Percent sign: `%` is not accepted as percentage and percentage needs to be expressed as fraction
+* Assignment operator: `<-` (left arrow) assigns a value to a name
+* To R, the result is a vector, even though for simple calculations the vector has only one element
+* Pipe operator: `%>%` indicates that you are passing the result of one function to the next function. Requires the `tidyverse` package 
+
+## Install packages
+
+R by default comes with many built-in tools however the real power of the program comes from the packages others have written to extend R. 
+
+To install a new package, there are two options:
+
+1. Use the command line:
+```
+install.packages ("ggplot2")
 ```
 
-## Including Plots
+2. Use the user interface:
+  * Click Tools - Install Packages...
+  * Type ggplot2  in Packages blank
+  * Click Install
 
-You can also embed plots, for example:
+then, on the command line, type:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```
+library(ggplot2)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+> You only need to install a package once. However, each time you restart R, you must load the library again using the `library()` command
+
+## Keyboard shortcuts & tips
+
+* Navigate command history: Up / Down
+* Clear console:	Ctrl + L
+* Change font size: click Tools - Global Options... - Appearance - Editor Font size
+
+## Basic functions
+
+Usually in this class we will be using `dpylr` package to do most calculations and data manipulation. But in some cases you may find it faster to use the base R functions.
+
+`help()` : the primary interface to the help systems
+
+> example: `help(mean)`
+
+> A more convenient way is to type just ? and the function name. For example, help(mean) and ?mean work the same
+
+`c():` combines values into a vector or list
+
+```{r}
+result <- c(1, 2)
+
+result
+```
+
+`mean(x, na.rm = FALSE)`: arithmetic mean
+
+```{r}
+mean(mtcars$mpg)
+```
+
+`sd(x, na.rm = FALSE)`: sample standard deviation which uses denominator n-1 
+
+```{r}
+sd(mtcars$mpg)
+```
+
+> Note this function does NOT calculate population SD but the sample SD
+
+`summary()`: for numeric variables, returns minimum, 1st quartile, median, mean, 3rd quartile, and maximum; for categorical variables, returns counts of all categories
+
+```{r}
+summary(mtcars$mpg)
+```
+
+## Piping
+
+The usual way to operate on data in this class is with pipes `%>%`; a pipe will carry over the result of one calculation to the following calculation. You can create arbitrarily long computation chains that can save you a lot of typing over using the built-in R functions. 
+
+To do some of the calculations in the following sections, you can do instead:
+
+`mean(mtcars$mpg)` piped version:
+
+```{r}
+mtcars %>% 
+  summarize(mean = mean(mpg))
+```
+
+We can combine the `mean()` and the `sd()` function in one command like the following:
+
+```{r}
+mtcars %>% 
+  summarize(mean = mean(mpg), sd = sd(mpg))
+```
+
+# Data Management
+
+## Importing datasets
+
+All datasets in this class are in .csv format (comma separated values). To import a .csv dataset, you need to:
+
+* Click File - Import Dataset - From Text (base)...
+* Select the file
+* Make sure `Heading: Yes`
+* `na .strings`: if the dataset has any missing values, enter the code for missing values 
+* `Strings as factors: ticked`
+
+> In R, categorical variables are represented as factors. So be careful here as some string values that are simply ID variables should not be classified as factors. There are a number of R commands that can convert between strings and factors later if you need to clean up your dataset after importing it.
+
+## Removing datasets
+
+`rm(mtcars)`
+
+> The datasets we work with in R are not very large so I don't recommend removing any datasets from memory. Once you delete it, there is no way to recover the dataset.
+
+## Rename a dataset
+
+```{r}
+mpgcars <- mtcars
+rm(mpg)
+```
+
+## Select and subset
+
+
+
+## Missing values
+
+# Tables & Plots
+## Frequency table and contingency table
+## Histogram
+## Boxplot
+## Bar chart and pie chart in ggplot
+## Boxplot in ggplot
+## Histogram in ggplot
+## Normal distribution and quantile
+## QQ Plot in ggplot
+## Scatterplot in ggplot
+## Correlation in ggcorrplot
+## Arrange multiple ggplot plots
+
+# Multiple variable analysis
+## Correlation
+## Simple regression
+## Multiple regression
+
+# Confidence intervals
+## Confidence interval for proportion
+## Confidence interval for mean
+
+# Hypothesis tests
+## Hypothesis test for proportion
+## Hypothesis test for mean
+## Inference for Difference between Two Proportions
+## Inference for Difference between Two Means

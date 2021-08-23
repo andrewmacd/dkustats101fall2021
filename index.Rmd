@@ -8,6 +8,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Course at a glance
 
+* Monday/Wednesday class at 8:10 pm China time (see Slack for Zoom class link)
+* Thursday lab 2:45-5:15 pm China time 
+* Office hours Tuesday/Friday 9:00-11:00 am China time (see Slack for Zoom link)
+* Pre-class warmup quiz due at 8:00 pm before each class
+* Homeworks are all due on Sunday at 11:59 pm
+* All other announcements and information are posted on the class Slack
+
 # Course description
 
 How can we use data to shed light on age-old and new human problems such as pollution, discrimination, and economic growth? How can we be “sure” that the evidence we have points us in the right direction? How meaningful are our findings? Do our results suggest the relationships we find between factors such smoking and cancer are meaningful or meaningless? How would we know? How should one properly display and explain your statistical results to these important issues?
@@ -16,243 +23,242 @@ This class introduces you to the tools and concepts that begin to tackle these q
 
 The emphasis in the course will not be on learning mathematical formulas related to statistics but rather to develop an intuitive understanding of statistical inference and measures of uncertainty. For those interested in developing this intuitive understanding of statistics in a more rigorous way, you may also consider taking the following courses:
 
-- Math 205: the mathematical foundations of statistics
-- Econ 203: advanced study of modern regression techniques
-- Social Sciences 350: advanced statistical techniques applied to real-world problems
+* Math 205: the mathematical foundations of statistics
+* Econ 203: advanced study of modern regression techniques
+* Social Sciences 350: advanced statistical techniques applied to real-world problems
 
 A third set of goals for the course is that you will also be able to read more fluently research literature that employs statistics. During this course I will reference, in class, a number of historically important academic articles and we will analyze the data from those articles. Doing so should help you understand how data is used (and misused) to construct social science arguments.
 
 # Course schedule
 
-Important: class schedule is subject to change, contingent on mitigating circumstances and the progress we make as a class. If there are any changes, I will announce them on Slack. For our [readings](#required-texts), IS stands for Intro Stats and NS stands for Naked Statistics
+Important: class schedule is subject to change, contingent on mitigating circumstances and the progress we make as a class. If there are any changes, I will announce them on Slack.
 
 ## Unit 1: Distributions
 
-### Thursday, January 7th: Class Welcome @8:10 pm China time
+### Monday, August 23rd: Class Welcome
 
-> Reading to do before class: IS Chapter 1, 2.1 and 2.2, and 3
+Reading to do before class: Chapter 1, 2.1 and 2.2, and 3
 
->Topics covered:
->
->-	What are data and variables?
->-	How to display quantitative and qualitative variables
->-	Contingency tables
+Topics covered:
 
->**Labs Due on Sunday, January 10th @ 11:59 pm China time:** 
+-	What are data and variables?
+-	How to display quantitative and qualitative variables
+-	Contingency tables
+
+### Wednesday, August 25th: Characteristics of Distributions
+
+Reading to do before class: Chapter 2.3-5 and 4
+
+> Preclass quiz due at 8:00 pm China time
+
+Topics covered:
+
+- How to describe the shape, center, and spread of a distribution
+- How to compare distributions
+- Dealing with problem distributions (outliers, reexpression)
+
+>**Labs Due on Friday, August 27th @ 11:59 pm China time:** 
 >
 >1. [Introduction to R](https://learn.datacamp.com/courses/free-introduction-to-r)
 >2. [Introduction to the Tidyverse](https://learn.datacamp.com/courses/introduction-to-the-tidyverse)
 
-### Tuesday, January 12: Characteristics of Distributions @8:10 pm China time
+### Monday, August 30th: The Normal Distribution
 
-> Reading to do before class: IS Chapter 2.3-5 and 4, NS Chapter 2
-
-> Preclass quiz due at 8:00 pm China time
-
->Topics covered:
->
->- How to describe the shape, center, and spread of a distribution
->- How to compare distributions
->- Dealing with problem distributions (outliers, reexpression)
-
-### Thursday, January 14: The Normal Distribution @8:10 pm China time
-
-> Reading to do before class: IS Chapter 5, NS Chapter 3
+Reading to do before class: Chapter 5
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- Standard deviation and standardizing values
->- Normal models
->- Normal percentiles
+Topics covered:
 
->**Labs Due on Friday, January 15 at 11:59 pm China time:**  
+- Standard deviation and standardizing values
+- Normal models
+- Normal percentiles
+
+## Unit 2: Relationships Between Variables
+
+### Wednesday, September 1st: Association and Correlation
+
+Reading to do before class: Chapter 6
+
+> Preclass quiz due at 8:00 pm China time
+
+Topics covered:
+
+- Scatterplots
+- Correlations
+- Does correlation imply causation?
+
+>**Labs Due on Friday, September 3rd at 11:59 pm China time:**  
 >
 >- [Exploratory Data Analysis in R](https://learn.datacamp.com/courses/exploratory-data-analysis-in-r) 
 >- [Introduction to Data Visualization with ggplot2](https://learn.datacamp.com/courses/introduction-to-data-visualization-with-ggplot2) 
 
->**[Homework 1 check](https://sakai.duke.edu/x/6Ej11G) Due Sunday, January 17th at 11:59 pm China time**
+>**[Homework 1](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, September 5th at 11:59 pm China time**
 
-## Unit 2: Relationships Between Variables
+### Monday, September 6th: Simple Linear Regression
 
-### Tuesday, January 19: Association and Correlation @8:10 pm China time
-
-> Reading to do before class: IS Chapter 6
+Reading to do before class: Chapter 7
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- Scatterplots
->- Correlations
->- Does correlation imply causation?
+Topics covered:
 
-### Thursday, January 21: Simple Linear Regression @8:10 pm China time
+- Line of best fit: least squares
+- The linear model
+- What are residuals
+- Regression assumptions
 
-> Reading to do before class: IS Chapter 7, NS Chapter 11
+### Wednesday, September 8th: Regression Wisdom
 
-> Preclass quiz due at 8:00 pm China time
-
->Topics covered:
->
->- Line of best fit: least squares
->- The linear model
->- What are residuals
->- Regression assumptions
-
->**Labs Due on Friday, January 22nd at 11:59 pm China time:** 
->
->- [Correlation and Regression in R, chapters 1-4](https://learn.datacamp.com/courses/correlation-and-regression-in-r)
-
->**[Homework 1](https://sakai.duke.edu/x/6Ej11G) Due Sunday, January 24th at 11:59 pm China time**
-
-### Tuesday, January 26: Regression Wisdom @8:10 pm China time
-
-> Reading to do before class: IS Chapter 8, NS Chapter 7
+Reading to do before class: Chapter 8
 
 > Preclass quiz due at 8:00 pm China time China time
 
->Topics covered:
+Topics covered:
+
+- Beware extrapolation
+- Outliers and leverage
+- Lurking variables
+- Straightening scatterplots
+
+>**Labs Due on Friday, September 10th at 11:59 pm China time:** 
 >
->- Beware extrapolation
->- Outliers and leverage
->- Lurking variables
->- Straightening scatterplots
+>- [Correlation and Regression in R](https://learn.datacamp.com/courses/correlation-and-regression-in-r)
 
-### Thursday, January 28: Multiple Regression @8:10 pm China time
+>**[Midterm progress check](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, September 12th at 11:59 pm China time**
 
-> Reading to do before class: IS Chapter 9
+### Monday, September 13th: Multiple Regression
+
+Reading to do before class: Chapter 9
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- What is multiple regression?
->- Interpreting multiple regression coefficients
->- Partial regression plots
->- Indicator variables
+Topics covered:
 
->**Labs Due on Friday, January 29th at 11:59 pm China time:** 
->
->- [Correlation and Regression in R, chapter 5](https://learn.datacamp.com/courses/correlation-and-regression-in-r)
->- [Multiple and Logistic Regression in R, chapters 1, 2, 3 and 5](https://learn.datacamp.com/courses/multiple-and-logistic-regression-in-r)
-
-**[Midterm Project](https://sakai.duke.edu/x/6Ej11G) Due on January 31st at 11:59 pm China time**
+- What is multiple regression?
+- Interpreting multiple regression coefficients
+- Partial regression plots
+- Indicator variables
 
 ## Unit 3: Measuring Uncertainty
 
-### Tuesday, February 2: Confidence Intervals - Proportions @8:10 pm China time
+### Wednesday, September 15th: Confidence Intervals - Proportions
 
-> Reading to do before class: IS Chapter 13, NS Chapters 8 and 10
-
-> Preclass quiz due at 8:00 pm China time
-
->Topics covered:
->
->- What is a sampling distribution?
->- When does the normal model apply?
->- Constructing a confidence interval
->- Interpreting a confidence interval
-
-### Thursday, February 4: Confidence Intervals - Means @8:10 pm China time
-
-> Reading to do before class: IS Chapter 14
+Reading to do before class: Chapter 13
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- The Central Limit Theorem
->- Confidence interval for means
->- Interpreting a confidence interval
->- Final thoughts on confidence intervals
+Topics covered:
 
->**Lab Due on Friday, February 5th at 11:59 pm China time:** 
+- What is a sampling distribution?
+- When does the normal model apply?
+- Constructing a confidence interval
+- Interpreting a confidence interval
+
+### Friday, September 17th: Confidence Intervals - Means
+
+Reading to do before class: Chapter 14
+
+> Preclass quiz due at 8:00 pm China time
+
+Topics covered:
+
+- The Central Limit Theorem
+- Confidence interval for means
+- Interpreting a confidence interval
+- Final thoughts on confidence intervals
+
+>**Lab Due on Friday, September 17th at 11:59 pm China time:** 
+>
+>- [Multiple and Logistic Regression in R, chapters 1, 2, 3 and 5](https://learn.datacamp.com/courses/multiple-and-logistic-regression-in-r)
+
+**[Midterm Project](https://sakai.duke.edu/x/RjcZ8f) Due on Tuesday, September 21st at 11:59 pm China time**
+
+### Wednesday, September 22nd: Hypothesis Testing
+
+Reading to do before class: Chapter 15
+
+> Preclass quiz due at 8:00 pm China time
+
+Topics covered:
+
+- What are hypotheses?
+- P-values
+- P-values and decisions – how to make a decision
+
+>**Lab Due on Friday, September 24nd at 11:59 pm China time:** 
 >
 >- [Inference for Categorical Data in R, chapter 1](https://learn.datacamp.com/courses/inference-for-categorical-data-in-r)
 
->**[Homework 2 check](https://sakai.duke.edu/x/6Ej11G) Due Sunday, February 7th at 11:59 pm China time**
+>**[Homework 2 check](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, September 26th at 11:59 pm China time**
 
-### Tuesday, February 9: Hypothesis Testing @8:10 pm China time
+### Monday, September 27th: Hypothesis Testing Wisdom
 
-> Reading to do before class: IS Chapter 15, NS Chapter 9
-
-> Preclass quiz due at 8:00 pm China time
-
->Topics covered:
->
->- What are hypotheses?
->- P-values
->- P-values and decisions – how to make a decision
-
-**Chinese New Year Break Feb 10 – 21**
-
-### Tuesday, February 23: Hypothesis Testing Wisdom @8:10 pm China time
-
-> Reading to do before class: IS Chapter 16, NS Chapter 9
+Reading to do before class: Chapter 16
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- Interpreting p-values
->- Alpha and critical values
->- Practical vs. statistical significance
->- Type I and II errors
->- Power of a test
+Topics covered:
+
+- Interpreting p-values
+- Alpha and critical values
+- Practical vs. statistical significance
+- Type I and II errors
+- Power of a test
 
 ## Unit 4: Statistical Inference
 
-### Thursday, Feburary 25: Comparing Groups @8:10 pm China time
+### Wednesday, September 29th: Comparing Groups
 
-> Reading to do before class: IS Chapter 17
+Reading to do before class: Chapter 17
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- Confidence intervals for comparing two samples
->- Assumptions and conditions for two-sample hypothesis tests
->- Two-sample z test
->- Two-sample t test
+Topics covered:
 
->**Lab Due on Friday, February 26th at 11:59 pm China time:** 
+- Confidence intervals for comparing two samples
+- Assumptions and conditions for two-sample hypothesis tests
+- Two-sample z test
+- Two-sample t test
+
+>**Lab Due on Friday, October 1st at 11:59 pm China time:** 
 >
 >- [Foundations of Inference, chapters 1, 2, and 3](https://learn.datacamp.com/courses/foundations-of-inference-in-r)
 
->**[Homework 2](https://sakai.duke.edu/x/6Ej11G) Due Sunday, February 28th at 11:59 pm China time**
+>**[Homework 2](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, October 9th at 11:59 pm China time**
 
-### Tuesday, March 2nd: Returning to Regression @8:10 pm China time
+** October holiday from October 1st-7th**
 
-> Reading to do before class: IS Chapter 20, NS Chapter 12
+### Monday, October 11th: Returning to Regression
+
+Reading to do before class: Chapter 20
 
 > Preclass quiz due at 8:00 pm China time
 
->Topics covered:
->
->- Regression inference and intuition
->- The regression table
->- Confidence and prediction intervals
+Topics covered:
 
-### Thursday, March 4th: Regression in Practice @8:10 pm China time
+- Regression inference and intuition
+- The regression table
+- Confidence and prediction intervals
 
-> Reading to do before class: TBD
+### Wednesday, October 13th: Regression in Practice
+
+Reading to do before class: TBD
 
 > No preclass quiz
 
->Topics covered:
->
->- How to read academic statistical results
->- Locating the model
->- Interpreting the test
->- Understanding possible weaknesses of the model
+Topics covered:
 
->**Lab Due on Friday, March 5th at 11:59 pm China time:**  
+- How to read academic statistical results
+- Locating the model
+- Interpreting the test
+- Understanding possible weaknesses of the model
+
+>**Lab Due on Friday, October 15th at 11:59 pm China time:**  
 >
 >- [Inference for Linear Regression in R](https://learn.datacamp.com/courses/inference-for-linear-regression-in-r)
 
->**[Paper Analysis](https://sakai.duke.edu/x/6Ej11G) Due Sunday, March 7th at 11:59 pm China time**
->
+>**[Paper Analysis](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, October 17th at 11:59 pm China time**
 
-**[Final Project](https://sakai.duke.edu/x/6Ej11G) Due on Thursday, March 11th at 11:59 pm China Time**
+
+>**[Final Project](https://sakai.duke.edu/x/RjcZ8f) Due on Thursday, October 21st at 11:59 pm China Time**

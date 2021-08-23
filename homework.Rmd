@@ -8,10 +8,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Homework 1
 
+TBD
+
 # Midterm project
+
+TBD
 
 # Homework 2
 
+TBD
+
 # Paper analysis
 
+TBD
+
 # Final project
+
+TBD

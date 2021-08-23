@@ -7,22 +7,98 @@ author: "Andrew MacDonald"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Lectures
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Unit 1: Distributions
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### Class Welcome
 
-```{r cars}
-summary(cars)
-```
+* Lecture webpage:
+* Recording:
 
-## Including Plots
+### Characteristics of Distributions
 
-You can also embed plots, for example:
+* Lecture webpage:
+* Recording:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+### The Normal Distribution
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+* Lecture webpage:
+* Recording:
+
+## Unit 2: Relationships Between Variables
+
+### Association and Correlation
+
+* Lecture webpage:
+* Recording:
+
+### Simple Linear Regression
+
+* Lecture webpage:
+* Recording:
+
+### Regression Wisdom
+
+* Lecture webpage:
+* Recording:
+
+### Multiple Regression
+
+* Lecture webpage:
+* Recording:
+
+## Unit 3: Measuring Uncertainty
+
+### Confidence Intervals - Proportions
+
+* Lecture webpage:
+* Recording:
+
+### Confidence Intervals - Means
+
+* Lecture webpage:
+* Recording:
+
+### Hypothesis Testing
+
+* Lecture webpage:
+* Recording:
+
+### Hypothesis Testing Wisdom
+
+* Lecture webpage:
+* Recording:
+
+## Unit 4: Statistical Inference
+
+### Comparing Groups
+
+* Lecture webpage:
+* Recording:
+
+### Returning to Regression
+
+* Lecture webpage:
+* Recording:
+
+### Regression in Practice
+
+* Lecture webpage:
+* Recording:
+
+# Labs
+
+## Week 1: RMarkdown
+
+## Week 2: Reexpression
+
+## Week 3: Regression Interpretation
+
+## Week 4: Sampling Distribution
+
+## Week 5: Hypothesis Testing
+
+## Week 6: $t$ tests
+
+## Week 7: Article Analysis

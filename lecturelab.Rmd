@@ -13,8 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Class Welcome
 
-* Lecture webpage:
-* Recording:
+* Recording: [Class introduction](https://duke.zoom.us/rec/share/uLEG-LbYlPv0NUuSLp82zpCwS9lEtVFG_GyyJzFxLrnKujZn2W4TW3pJtKrJC0ve.5C3LplqA3O6q0T8-)
 
 ### Characteristics of Distributions
 

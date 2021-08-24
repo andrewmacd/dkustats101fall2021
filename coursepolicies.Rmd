@@ -94,6 +94,18 @@ I will detail the policy for this course below. Basically, try to learn stuff, d
 
 - Participation **10%**: As discussed in [the attendance policy section](#attendance-policy), class attendance is important. So is participating in the discussions on Slack. If you attend all the course meetings but do not actively participate on Slack, you can expect a B/B+ participation grade. Receiving an A grade for participation requires that you come to every class and actively participate in Slack (help other students, ask questions, comment on other's posts and so on).
 
+## Lateness Policy
+
+Since the course moves very quickly, if you are submitting work late that means you are falling behind on other material and it may be difficult for you to recover. Therefore, I have a fairly strict lateness policy. 
+
+* All major assignments are due at **11:59:00 pm**. Not 11:59:01 or 11:59:59. 
+* If it is later than 11:59:00, then the assignment will be assessed a 5% lateness penalty
+* If it is later than 12:29:00, then the assignment will be assessed a 15% lateness penalty
+* If it is later than 8:00 am the next day, the assignment will be assessed a 50% lateness penalty
+* If it is later than 2 days from the due date, I will no longer accept the assignment
+
+> Please be sure to check that your homework is complete and make sure to submit it a few minutes early. You can submit multiple times on Sakai so make sure you have a nearly complete version uploaded even if you want to keep working on it right up to the deadline. I will not be sympathetic to messages that complain of computer problems when you are trying to submit for the first time at 11:58:51 pm.
+
 ## Attendance Policy
 
 I enjoy randomly calling on students during class, so I recommend you come to class and be prepared as you could be the lucky winner that is called on in any given class section! The lecture will have a number of points on which I will ask students to modify some code and return a result and doing these exercises is mandatory. If you are called on but not attending the lecture without previously notifying me, it will count as an absence and seriously affect your participation grade.

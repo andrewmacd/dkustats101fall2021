@@ -161,7 +161,7 @@ ggplot(ourdata, aes(x=Q2)) +
   labs(x="Handedness left - right", y="Count")
 ```
 
-## Handedness l-r summary statistics
+## Handedness l+r summary statistics
 
 - Shape
   + Skew: 

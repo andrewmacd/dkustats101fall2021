@@ -5,9 +5,9 @@ account: andrewm
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4533647
-bundleId: 4961978
+bundleId: 4962726
 url: https://andrewm.shinyapps.io/Lecture2-Distributions/
-when: 1629886633.59105
-lastSyncTime: 1629886633.59105
+when: 1629898551.25153
+lastSyncTime: 1629898551.25153
 asMultiple: FALSE
 asStatic: FALSE

@@ -225,7 +225,7 @@ Topics covered:
 >
 >- [Foundations of Inference, chapters 1, 2, and 3](https://learn.datacamp.com/courses/foundations-of-inference-in-r)
 
->**[Homework 2](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, October 9th at 11:59 pm China time**
+>**[Homework 2](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, October 10th at 11:59 pm China time**
 
 ** October holiday from October 1st-7th**
 

@@ -17,8 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Characteristics of Distributions
 
-* Lecture webpage:
+* Lecture webpage: [Lecture 2: Characteristics of Distributions](https://andrewm.shinyapps.io/Lecture2-Distributions/)
 * Recording:
+* Quality YouTube content: [Tidyverse music video](https://www.youtube.com/watch?v=p8Py9C8iq2s&ab_channel=TheRaf)
 
 ### The Normal Distribution
 

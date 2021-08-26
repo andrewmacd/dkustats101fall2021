@@ -13,12 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Class Welcome
 
-* Recording: [Class introduction](https://duke.zoom.us/rec/share/uLEG-LbYlPv0NUuSLp82zpCwS9lEtVFG_GyyJzFxLrnKujZn2W4TW3pJtKrJC0ve.5C3LplqA3O6q0T8-)
+* Recording: [Class introduction recording](https://duke.zoom.us/rec/share/uLEG-LbYlPv0NUuSLp82zpCwS9lEtVFG_GyyJzFxLrnKujZn2W4TW3pJtKrJC0ve.5C3LplqA3O6q0T8-)
 
 ### Characteristics of Distributions
 
 * Lecture webpage: [Lecture 2: Characteristics of Distributions](https://andrewm.shinyapps.io/Lecture2-Distributions/)
-* Recording:
+* Recording: [Lecture 2 recording](https://duke.zoom.us/rec/share/NlKBUGJqr8h525mxEiyBUW6c-jLNPQ-fxNWAouso0DRBCafFNHJj8GkRpw0sDJv2.3FlH8IPcCb7hrOBp)
 * Quality YouTube content: [Tidyverse music video](https://www.youtube.com/watch?v=p8Py9C8iq2s&ab_channel=TheRaf)
 
 ### The Normal Distribution

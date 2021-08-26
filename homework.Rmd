@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Homework 1
 
-TBD
+[Homework 1 instructions and dataset](homeworks/hw1/hw1.zip)
 
 # Midterm project
 

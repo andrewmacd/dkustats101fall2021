@@ -8,20 +8,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Homework 1
 
-[Homework 1 instructions and dataset](homeworks/hw1/hw1.zip)
+* [Homework 1 instructions and dataset](homeworks/hw1/hw1.zip)
+* Solutions
 
 # Midterm project
 
-TBD
+* Midterm instructions
 
 # Homework 2
 
-TBD
+* Homework 2 instructions
+* Solutions
 
 # Paper analysis
 
-TBD
+* Paper analysis instructions
 
 # Final project
 
-TBD
+* Final project instructions

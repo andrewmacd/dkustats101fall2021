@@ -140,13 +140,3 @@ Additional R code blocks that rely on the `dplyr` library can be added to your d
 mtcars %>%
   summarize(median(mpg))
 ```
-
-# Data Camp 
-
-Your last step for today is to register for Data Camp, a site that provides a lot of useful R tutorials to help you get up to speed quickly on R. Each module takes about four hours to complete so make sure to set aside enough time to finish it. The registration link is here:
-
-[Data Camp registration](https://www.datacamp.com/groups/shared_links/9f663367a3aaf8b4112a71d66237354210a8351e064e5631ae391e436c16ed99)
-
-Make sure to sign up with your Duke or DKU email. 
-
-Once you have registered, with remaining time in lab, go ahead and start the [Introduction to R](https://learn.datacamp.com/courses/free-introduction-to-r)

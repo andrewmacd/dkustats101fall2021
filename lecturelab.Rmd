@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * Recording: [Lecture 2 recording](https://duke.zoom.us/rec/share/NlKBUGJqr8h525mxEiyBUW6c-jLNPQ-fxNWAouso0DRBCafFNHJj8GkRpw0sDJv2.3FlH8IPcCb7hrOBp)
 * Quality YouTube content: [Tidyverse music video](https://www.youtube.com/watch?v=p8Py9C8iq2s&ab_channel=TheRaf)
 
-### The Normal Distribution
+### Comparing distributions and the Normal distribution
 
 * Lecture webpage: [Lecture 3: Advanced Distributions](https://andrewm.shinyapps.io/Lecture3-AdvancedDistributions/)
 * Recording:

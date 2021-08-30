@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### The Normal Distribution
 
-* Lecture webpage:
+* Lecture webpage: [Lecture 3: Advanced Distributions](https://andrewm.shinyapps.io/Lecture3-AdvancedDistributions/)
 * Recording:
 
 ## Unit 2: Relationships Between Variables

@@ -12,6 +12,12 @@ subtitle: DKU Stats 101 Fall 2021 Session 1
 # Put any setup code here
 ```
 
+***
+
+![](supermarket.jpg)
+
+*Australian supermarket*^[Credit to Wikimedia at https://commons.wikimedia.org/wiki/File:Supermarket.jpg]
+
 # Assignment Background
 
 Imagine that a large grocery store that has both regular stores and a delivery service has hired you to help them investigate their customer purchasing patterns. By better understanding what their customers are buying, they can improve their product offerings and increase sales. Put yourself in the shoes of this consultant - your task is to interpret important summary information about customer characteristic and purchasing behavior.^[Credit to Jack Daoud for making this data publicly available at https://www.kaggle.com/jackdaoud/marketing-data]    
@@ -41,7 +47,8 @@ Based on these articles and your own personal expectations, some ways we might e
 
 ### Q3: Describing the data (10 points)
 
- instructions from the DataCamp lab about converting text into factors 
+The first step in analyzing any dataset is doing some exploratory analysis of the variables.
+
 - Make a histogram of `MntWines`. 
   + Describe it using the three features of quantitative data.
   + Which is a better measure of center of the histogram, mean or median?

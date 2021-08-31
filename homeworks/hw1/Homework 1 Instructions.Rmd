@@ -12,7 +12,9 @@ subtitle: DKU Stats 101 Fall 2021 Session 1
 # Put any setup code here
 ```
 
-![Australian supermarket](supermarket.jpg)^credit to [Wikimedia](https://commons.wikimedia.org/wiki/File:Supermarket.jpg)
+***
+
+![](supermarket.jpg)Australian supermarket^[Credit to Wikimedia at https://commons.wikimedia.org/wiki/File:Supermarket.jpg]
 
 # Assignment Background
 

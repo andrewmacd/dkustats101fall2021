@@ -94,7 +94,9 @@ knitr::opts_chunk$set(echo = TRUE)
 * Lab files: [Lab 1 - R Markdown](labs/wk1/lab1.zip)
   + Make sure to extract (unzip) the lab files before attempting to modify them!
 
-## Week 2: Reexpression
+## Week 2: Association and Correlation
+
+* Lab files: [Lab 2 - Association](labs/wk2/lab2.zip)
 
 ## Week 3: Regression Interpretation
 

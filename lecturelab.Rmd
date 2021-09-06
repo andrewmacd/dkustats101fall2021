@@ -31,11 +31,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Association and Correlation
 
 * Lecture webpage: [Lecture 4: Association and Correlation](https://andrewm.shinyapps.io/Lecture4-AssociationCorrelation/)
-* Recording:
+* Recording: [Lecture 4 recording](https://duke.zoom.us/rec/share/avr76S7AvD6uLcVDPBRHz9XumwKcxvWuABv8SRrXQpEQlCM-npWRQtOSuxZ6WKvW.gb_id8zOaXtKiNaS)
 
 ### Simple Linear Regression
 
-* Lecture webpage:
+* Lecture webpage: [Lecture 5: Simple Linear Regression](https://andrewm.shinyapps.io/Lecture5-SimpleRegression/)
 * Recording:
 
 ### Regression Wisdom

@@ -5,9 +5,9 @@ account: andrewm
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4570780
-bundleId: 4987985
+bundleId: 4988925
 url: https://andrewm.shinyapps.io/Lecture4-AssociationCorrelation/
-when: 1630484543.0731
-lastSyncTime: 1630484543.0731
+when: 1630502915.87402
+lastSyncTime: 1630502915.87402
 asMultiple: FALSE
 asStatic: FALSE

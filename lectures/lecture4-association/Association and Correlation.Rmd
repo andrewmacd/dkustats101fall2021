@@ -54,7 +54,7 @@ sample(classroster$name, 1)
 
 ## Exercise 2
 
-![Seattle](seattle.jpg)
+![Seattle](www/seattle.jpg)
 
 ### Exercise details
 
@@ -165,7 +165,7 @@ sample(classroster$name, 1)
 
 ### Outlier - actual observation
 
-![Outlier view](outlier.png)
+![Outlier view](www/outlier.png)
 
 ### Data with no outlier
 

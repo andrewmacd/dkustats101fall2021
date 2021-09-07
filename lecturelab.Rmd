@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Simple Linear Regression
 
 * Lecture webpage: [Lecture 5: Simple Linear Regression](https://andrewm.shinyapps.io/Lecture5-SimpleRegression/)
-* Recording:
+* Recording: [Lecture 5 recording](https://duke.zoom.us/rec/share/9VonHtUX8D-BjkAdnUDbxYmvZAEiTp9l-KN-X4N7WeqRx_k1eg8TYrP-b4vRxirT.ILsSSCH1j1gWUBgc)
 
 ### Regression Wisdom
 
@@ -99,6 +99,8 @@ knitr::opts_chunk$set(echo = TRUE)
 * Lab files: [Lab 2 - Association](labs/wk2/lab2.zip)
 
 ## Week 3: Regression Interpretation
+
+* Lab files: [Lab 3 - Regression Interpretation](labs/wk3/lab3.zip)
 
 ## Week 4: Sampling Distribution
 

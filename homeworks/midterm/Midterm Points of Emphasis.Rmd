@@ -1,0 +1,89 @@
+---
+title: "Stats 101 Fall 2020 Midterm Scoring Guide"
+author: "Anonymous"
+date: "9/30/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment instructions
+
+## Task
+
+![Bicycle sharing](bike.sharing.jpg)
+
+Bicycle sharing schemes have become increasingly popular in cities around the world as a good way for residents and tourists to get around the central parts of cities. However, the use of bicycle sharing systems require that the bicycles get many riders per day to pay for the costs associated with buying the bicycles and regular maintenance. Imagine that you have been hired by a city identical to Kunshan in China (same weather, size, population) to investigate whether they should develop their own bicycle sharing scheme. You are given data on the bicycle sharing system implemented in a major US city that is about the same population size as Kunshan, has many more tourists than a city like Kunshan, and is colder in the winter than Kunshan to help determine whether it would be a good idea for our city that is identical to Kunshan to spend the money to pay for the system. 
+
+## Specific requirements
+
+* Save this document as a new document (Save As...) and rename it `Bikesharing report`.
+* Rename the title of your report to `Bikesharing report`
+* Delete the Assignment Background section and these instructions
+* Open the `bicycle.sharing.csv` file by selecting File->Import Dataset->From Text (base). Copy the command RStudio sends to the console and paste it in the `setup` code block above.
+* Final report should be about 1500 words
+  + Maximum 5 graphs
+  + Maximum 3 tables
+  
+* Suggested structure:
+  + Introduction and literature review
+  + Summary statistics
+  + Regression model
+  + Regression diagnostics
+  + Conclusion
+* In your report, be sure to consider the issue of how comparable this city is to a city like Kunshan
+  
+The definition of the variables are as follows:
+
+* instant: Record index
+* dteday: Date
+* season: Season (1:springer, 2:summer, 3:fall, 4:winter)
+* yr: Year (0: 2011, 1:2012)
+* mnth: Month (1 to 12)
+* hr: Hour (0 to 23)
+* holiday: weather day is holiday or not (extracted from Holiday Schedule)
+* weekday: Day of the week
+* workingday: If day is neither weekend nor holiday is 1, otherwise is 0.
+* weathersit: (extracted from Freemeteo)
+  + 1: Clear, Few clouds, Partly cloudy, Partly cloudy
+  + 2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+  + 3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds
+  + 4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog
+  
+* temp: Normalized temperature in Celsius. The values are derived via (t-tmin)/(tmax-tmin), tmin=-8, t_max=+39 (only in hourly scale)
+* atemp: Normalized feeling temperature in Celsius. The values are derived via (t-tmin)/(tmax-tmin), tmin=-16, t_max=+50 (only in hourly scale)
+* hum: Normalized humidity. The values are divided to 100 (max)
+* windspeed: Normalized wind speed. The values are divided to 67 (max)
+* casual: count of casual users
+* registered: count of registered users
+* cnt: count of total rental bikes including both casual and registered
+
+## Points of emphasis
+
+* Your job as an analyst is to write a report analyzing what are the factors you think best predict test scores for a district. You should limit your focus to one response variable and 2-4 predictor variables that you think are most important. 
+
+* Whether a variable should be included or not should be based on whether the variable is important in evaluating the question posed above. You may want to cite a few sources relevant to answering the question to better help you select variables that you include in your analysis. 
+
+* Do not exclude a variable just because it initially does not meet the regression requirements. However, consider carefully whether some variables are actually highly related to another predictor variable – do not include several measures of the same basic concept. 
+
+* You should focus your graphs and tables on that illustrating the most important information for drawing your conclusion. Choose your tables carefully such that they convey the key information needed to arrive at your conclusion. Do not make tables and graphs of irrelevant information or points that do not need discussing.
+
+## Scoring guide
+
+* Justification for selection of variables (**10 points**). Variable selection should be done on the basis of some high quality thinking and good justification should be provided. Points subtracted for not explaining why certain variables were included in the analysis or providing weak justification for why certain variables were included. Points also subtracted if the logic is unclear as to why a particular variable should be chosen as a response variable.
+
+* Understanding of variable distribution (**15 points**). Good quality description of distributions, including noting the four characteristics described in the textbook: center, shape, spread, and outliers. If any of these characteristics show problems, a discussion should included about what possible remedies (if any) can be considered for the distribution. Points subtracted for not usefully summarizing the distributions and incomplete summaries of the distribution.
+
+* Appropriate regression model (**25 points**). You need to have a multiple regression model (two or more predictor variables). Conditions for regression should be checked, including straight enough condition, the equal variance assumption, and noting any outliers. These conditions should be checked via residual plots and partial residual plots. Points subtracted for not having a multiple regression model, for not checking the conditions or not checking them sufficiently, and for misinterpreting any plotted or tabular information. Note that you may have also added plots of two-way information about relationships between variables. 
+  + It is acceptable to include simple two-way plots or correlations and describe them in your text but the main focus of your analysis should be on your multiple regression model.
+  + If any of the regression conditions are violated, you should recognize the violation and suggest appropriate remedies in the text and show an updated model that meets the conditions (to the extent it is possible).
+
+* Interpretation of regression model (**15 points**). You need to carefully interpret the meaning of your coefficients in your multiple regression model. You need to both describe the specific meaning of your regression coefficients in terms of a one-unit change in the predictor variable, but also interpret the magnitude of the coefficient in practical, meaningful terms (is the coefficient substantively large or small?). Points subtracted for not interpreting the coefficients, including the intercept, and points subtracted for not considering how meaningful the coefficients are.
+
+* Overall strength of recommendation and evidence of logical thought (**15 points**). You should demonstrate a good understanding of the overall meaning of your findings and relate them to the task (make a recommendation for a city very similar to Kunshan). Points subtracted if you do not relate your findings to the requested city, do not logically connect your findings, do not summarize your findings accurately or completely, or make a strong overall argument about your data.
+
+* Graph and table quality (**10 points**). Graphs and tables are well labeled and relevant to your argument. Points subtracted for incomplete or inappropriate labeling, having too many graphs or tables (more than 5 total plots and 3 total tables), not having enough tables or graphs, or picking tables or graphs to include that do not show relevant or useful information. 
+
+* Overall document presentation (**10 points**). Your writing was clear, the document was clean of any stray code, and the document was well organized. Points subtracted for unnecessary code in the document, poor organization, or difficult to read writing. While this document was not meant to be a research-quality paper, it should look professional. 

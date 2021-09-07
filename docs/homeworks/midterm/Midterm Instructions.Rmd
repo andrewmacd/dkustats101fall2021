@@ -1,0 +1,91 @@
+---
+title: "Stats 101 Fall 2021 Midterm"
+subtitle: "DKU Stats 101 Fall 2021 Session 1"
+author: "Anonymous"
+date: "9/7/2021"
+output:
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+read.csv("apartments.csv")
+```
+
+# Assignment instructions
+
+## Task
+
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="1210 Mass Avenue",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c("exterior.jfif","kitchen.png"))
+``` 
+
+One of the most important tasks of any junior intern at a property management company is to develop reports on future investment possibilities. Rental prices can vary a lot depending on the various features of the apartment and on the quality of the building it is in. 
+
+Your task is to imagine yourself as an intern at a property investment firm. You are tasked with writing a report to your boss that attempts to determine what are the factors that best predict rental prices. Your team will use this information to help plan future rental property acquisitions. 
+
+In particular, you need to find specific factors that are associated rental price and create a high quality regression model with multiple variables that explains this relationship
+
+## Specific requirements
+
+* Save this document as a new document (Save As...) and rename it `US Property Report`.
+* Rename the title of your report to `US Property Report`
+* Delete the `Assignment instructions`, `Task`, `Specific requirements` and `Points of emphases` sections
+* Final report should be about 1500 words
+  + Maximum 6 graphs
+  + Maximum 4 tables
+  
+* Suggested structure:
+  + Introduction & literature review
+  + Summary statistics
+  + Regression model
+  + Regression diagnostics
+  + Interpreting coefficients
+  + Conclusion
+  
+The definition of the variables can be found here: [dataset source](https://www.kaggle.com/jackogozaly/equity-residential-apartment-data) 
+
+***There will be a midterm check to make sure you are making good progress due Sunday, September 12th at 11:59 pm***
+
+You need to submit a relatively finished version fo the first two sections (`Introduction & literature review` and `Summary statistics`) by the Sunday deadline. The grade will be pass/fail. The submitted check does not have to be in its final form (you can modify it later if you choose) or be polished. However, both sections should be substantially complete - all code necessary to fulfill the requirements of the section included and all text necessary to meet the requirements written.
+
+## Points of emphasis
+
+* Your job as an analyst is to write a report analyzing what features of apartments you think cause higher rents. You should limit your focus to one response variable and maximum 4-5 predictor variables that you think are most important in your analyses. You can consider multiple, related models if you wish - models that share most predictor variables but differ by one or two minor variables. 
+
+* Whether a variable should be included or not should be based on whether the variable is important in evaluating the question posed above. You a source or two relevant to answering the question to better help you select variables that you include in your analysis. 
+
+* Do not exclude a variable just because it initially does not meet the regression requirements. However, consider carefully whether some variables are actually highly related to another predictor variable – do not include several measures of the same basic concept (collinearity). In general, you want to start by picking the variables you think matter the most in determining rent price and then work to try to understand their relationship to rent. 
+
+* You should focus your graphs and tables on that illustrating the most important information for drawing your conclusion. Choose your tables carefully such that they convey the key information needed to arrive at your conclusion. Do not make tables and graphs of irrelevant information or points that do not need discussing. Multiple graphs of the same type (for example, distribution plots) can be combined using the `gridExtra` command, but unrelated plots should be listed separately. 
+
+* Make sure to also interpret the coefficients. You need to interpret the impact of a one unit change in the predictor variable on the response variable. You additionally need to examine whether changes in the predictor variables lead to a substantively large or small change in the predictor variable. One way to do this is examining whether changing the predictor variable from its Q1 to Q3 value leads to a large or small change in the response variable. You may want to make a table with this information.  
+
+* Included in this package of files is an example midterm. Do not blindly copy the structure of the sample. It is a guide only. You should develop your own results and follow the instructions listed here first and then refer to the sample for guidance on formatting.
+
+# Introduction and literature review
+
+Discuss what your expectations are here and how you arrived at your expectation, including the source of your expectation.
+
+# Summary data
+
+Summarize your data (distribution of variables, features of the variables) here.
+
+# Regression interpretation
+
+Consider one or more possible models here
+
+# Regression diagnostics
+
+Check to see how well your model(s) fit the data here.
+
+# Interpreting coefficients
+
+Interpret the magnitude of your coefficients here.
+
+# Conclusion
+
+Add conclusion and any small additional interesting findings here. Note also any limitations of your analysis and what other forms of advanced analysis could be conducted to strengthen the analysis in the future.

@@ -45,7 +45,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Multiple Regression
 
-* Lecture webpage:
+* Lecture webpage: [Lecture 7: Multiple Regression](https://andrewm.shinyapps.io/Lecture7-MultipleRegression/)
 * Recording:
 
 ## Unit 3: Measuring Uncertainty

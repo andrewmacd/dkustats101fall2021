@@ -104,6 +104,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Week 4: Sampling Distribution
 
+* Lab files [Lab 4 - Sampling Distributions](labs/wk4/lab4.zip)
+
 ## Week 5: Hypothesis Testing
 
 ## Week 6: $t$ tests

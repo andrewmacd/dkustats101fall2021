@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Homework 1
 
 * [Homework 1 instructions and dataset](homeworks/hw1/hw1.zip)
-* Solutions
+* [Sample solutions](homeworks/hw1/hw1solution.zip)
 
 # Midterm project
 

@@ -1,0 +1,424 @@
+---
+title: "Homework 1 Sample Solutions"
+author: "Professor MacDonald"
+date: "9/17/2021"
+output:
+  html_document:
+    toc: true
+subtitle: DKU Stats 101 Fall 2021
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+# Load any necessary libraries
+library(tidyverse)
+library(knitr)
+
+# Load the data
+customer_data <- read.csv("customer_data.csv")
+
+# Sets the graphical theme
+theme_set(theme_classic())
+```
+
+### Q1: What kind of dataset do we have? (5 points)
+
+- According to the definitions in the textbook, describe the Five W's for this dataset.
+
+>- *Who  *: Grocery store customers
+>- *What *: `r colnames(customer_data)`
+>- *When *: Sometime recently
+>- *Where*: Unclear
+>- *Why  *: Track customer behavior
+  
+- Using the definitions in the textbook, describe the variable type for each variable in the dataset.
+
+>- *Categorical variables *: Education, Marital_Status
+>- *Identifiers           *: X, ID
+>- *Quantitative variables*: all the rest  
+  
+>**Point of emphasis:**
+>
+>- You don't need to know all of the details for where the dataset came from for the Five Ws but you do need to categorize all the variables properly
+
+### Q2: Literature review (5 points)
+
+**An example:**
+
+[Deep data: What it tells retailers about shoppers, preferences and selection](https://www.grocerydive.com/news/grocery--deep-data-what-it-tells-retailers-about-shoppers-preferences-and-selection/533812/)
+
+1. Online purchases have less impulse purchases, so amount spent on wine might be lower
+2. Customers routinely purchase the same things in their online orders, so there will be a lot continuity in amount spent each month on each category of items
+3. Amount spent on online grocery shopping platforms has been increasing over time, which should be visible in the data
+
+>**Points of emphasis:**
+>
+>- The article must deal with grocery shopping and data
+>- You must have posted it to Slack
+
+### Q3: Describing the data (10 points)
+
+- Make a histogram of `MntWines`. 
+
+```{r q3a}
+ggplot(customer_data, aes(x=MntWines)) +
+  geom_histogram(bins = 30, fill="blue", color="black") + 
+  labs(title="Distribution of spending on wine",x="Dollars spent",y="Count")
+```
+
+  + Describe it using the three features of quantitative data.
+  
+>- *Shape*: appears to be highly right skewed with several possible outliers, not symmetrical. Unimodal. 
+>- *Center*: mean dollars spent is `r round(mean(customer_data$MntWines, na.rm=TRUE))`, median is `r median(customer_data$MntWines)`; as you can see, the mean is being "pulled" to higher values due to the right skew
+>- *Spread*: IQR is `r IQR(customer_data$MntWines)`, so 50% of the observations fall within 434 dollars of the mean. The standard deviation is `r round(sd(customer_data$MntWines))`, which is about 75% of the IQR. In a normal distribution they are close together but because of the outliers, they are a little farther apart.   
+
+  + Which is a better measure of center of the histogram, mean or median?
+  
+> In this case, because of the strong right skew, the median is a better measure of center.
+  
+  + Calculate the five number summary by hand - you can use the `quantile(<variable>)` and `range(<variable>)` function for this. Show your code.
+  
+```{r q3b, echo=FALSE}
+kable(
+  customer_data %>%
+    summarise(min(MntWines),  quantile(MntWines, probs=0.25), median(MntWines), quantile(MntWines, probs=0.75), max(MntWines)), 
+  col.names = c("Min", "25%", "Median", "75%", "Max"),  
+  caption="MntWines 5 number summary")
+```
+
+>There are quite a few other ways to generate this result, the above is just one example
+  
+  + Interpret the standard deviation.
+  
+> Standard deviation(sd) is a kind of evaluation for how far each value is from the mean, representing the the spread of the data distribution, so sd is often discussed at the same time as the mean. The result of sd equals to the square root of the variance, with the same unit of the original data, but it can be greatly affected by outliers or skew. In this case, the sd is `r round(sd(customer_data$MntWines))` which is fairly large given the range of the data.
+
+  + Would this histogram benefit from a transformation, in your opinion? Why or why not?
+  
+> Yes, because it's a highly right-skewed variable, which could be usually benefit from a transform by square roots, logs and reciprocals-- that is, limit the spread of the right part to the mode.The following figure is the histogram of log MntWines, which seems much more symmertric, though now somewhat left skewed. Further, more fine tuned transformations might benefit this variable.
+
+```{r q3c}
+ggplot(customer_data, aes(log(MntWines)))+
+  geom_histogram(bins = 15, fill="blue", color="black") + 
+  labs(title="Distribution of amount spent on wines",x="Log MntWines",y="Count")
+```
+
+- Make a bar chart comparing the mean of `MntWines` according to the variable `Marital Status`. Interpret this graph.
+  
+```{r q3d}
+ggplot(customer_data, aes(x=Marital_Status, y=MntWines)) +
+  geom_bar(aes(fill=Marital_Status), stat="summary", fun="mean") + 
+  labs(title="Mean amount spent on wines by marital status",
+       x="Marital status",
+       y="Amount spent on wines") +
+  theme(legend.position="none")
+```
+  
+> This bar chart is fairly interesting - single people tend to spend as much or more on wine as married people. It suggests that single people may be without so many responsibilities and therefore spend more on alcohol products. The difference between divorced and widowed is also interesting, though there may be a small sample sie for widow.
+
+>**Points of emphasis:**
+>
+>- Well labeled graphs, with appropriate (not variable name) names for the x and y axes.
+>- Legend labeled
+>- Bar graphs use color (-1 if not)
+>- Graphs that contain the correct amount of information
+>- Reasonable, thoughtful interpretations of the requested statistics, not just one or two word answers. 
+>- Correct results for the requested statistics
+  
+### Q4: Comparing categorical variables (10 points)
+
+- Create a contingency table comparing number of children and `Marital_Status`
+
+```{r q4a}
+customer_data <- customer_data %>% 
+  mutate(children = Kidhome + Teenhome)
+
+kid.marriage.table <- table(as.factor(customer_data$children), customer_data$Marital_Status)
+
+rownames(kid.marriage.table) <- c("No children", "One child", "Two children", "Three children")
+
+kable(kid.marriage.table)
+```
+
+>We can see that unsurprisingly married people have the most children. However, there are a surprising number of non-traditional families (single, together, divorced) with children
+
+- Add margins to your table by using the `addmargins(table())` set of nested functions. What extra information does this provide? Does it change your interpretation?
+
+```{r q4b}
+kable(addmargins(kid.marriage.table))
+```
+
+>We can see more easily that customers with children are in the majority and that married people have the most children.
+
+- You can convert your table into a proportions table by calling `prop.table()` instead of `table()`. Does this better help explain what the data show? Which table do you prefer - the percentage table or the frequency table for this particular set of data?
+
+```{r q4c}
+kable(prop.table(kid.marriage.table))
+```
+
+>In this case, I prefer the count table--it is easier to see the overall number of cases. The percentage table is harder to read since many of the percentages are small. However, sometimes you should determine which kind of percent you need--column percents, row percents or table percents. It can also be helpful to know how many observations are in each row and column.
+
+>**Points of emphasis:**
+>
+>- Reasonable, thoughtful interpretations of the requested statistics, not just one or two word answers. 
+>- Correct results for the requested statistics
+
+### Q5: Understanding and comparing distributions (10 points)
+
+- Simply using the five number summaries, calculate if `MntWines` or `MntSweetProducts` have any outliers according to the rule described in the textbook. Show your calculations.
+
+```{r q5a, message=FALSE, warning=FALSE}
+kable(
+  customer_data %>%
+    summarise(min(MntWines),  quantile(MntWines, probs=0.25), median(MntWines), quantile(MntWines, probs=0.75), max(MntWines)), 
+  col.names = c("Min", "25%", "Median", "75%", "Max"),  
+  caption="MntWines 5 number summary")
+
+kable(
+  customer_data %>%
+    summarise(min(MntSweetProducts),  quantile(MntSweetProducts, probs=0.25), median(MntSweetProducts), quantile(MntSweetProducts, probs=0.75), max(MntSweetProducts)), 
+  col.names = c("Min", "25%", "Median", "75%", "Max"),  
+  caption="Total MntSweetProducts 5 number summary")
+```
+
+>For MntWines:
+
+>- median=132.5
+>- IQR=450.5-16.5=434
+>- Upper fence=450.5+1.5x434=1101.5
+>- Lower fence=16.5-1.5x434=-634.5 (so 0)
+
+>The outliers are:
+
+```{r q5b, echo=FALSE}
+kable(
+  customer_data %>%
+    filter(MntWines > 783.5) %>%
+    select(c("ID", "MntWines")) %>%
+    arrange(MntWines),
+    caption="MntWines outliers",
+    col.names=c("ID", "MntWines"))
+```
+
+>For MntSweetProducts: 
+
+>- median=9.5
+>- IQR=33-1=32
+>- Upper fence=33+1.5x32=81
+>- Lower fence=1-1.5x32=-47 (so 0)
+
+>The outliers are:
+
+```{r q5c, echo=FALSE}
+kable(
+  customer_data %>%
+    filter(MntSweetProducts > 57.5) %>%
+    select(c("ID", "MntSweetProducts")) %>%
+    arrange(MntSweetProducts),
+    caption="MntSweetProducts outliers",
+    col.names=c("ID", "MntSweetProducts"))
+```
+
+- Create a graph of boxplot of `MntSweetProducts` by number of children at home. What can you conclude from this display? Would any of these subgroups benefit from having `MntSweetProducts` re-expressed? Why or why not?
+
+```{r q5d, echo=FALSE}
+ggplot(customer_data,aes(x=factor(children),y=MntSweetProducts, fill=children)) +
+  geom_boxplot() +
+  labs(title=" Boxplots of amount spent on sweets by number of children",x="Number of children",y="Amount spent", fill="children") +
+  theme(plot.title=element_text(hjust=0.5),
+        legend.position = "none")
+```
+
+>All of these distribtions are right skewed, particularly the customers with only one child. Customers with no children looks the most symmetrical. 
+
+>**Points of emphasis:**
+>
+>- Boxplots well labeled, with no legend (-1 if legend)
+>- Proper calculation of 5 number summaries without using fivenum() or similar
+>- Shows work for calcuation of outliers
+>- Discusses shape, center, and spread for analysis of boxplot
+>- Shows understanding of appropriate conditions for reexpression
+
+### Q6: The Normal distribution (10 points)
+
+Note: for the following exercises we are going to assume that the variable `age` is normally distributed
+
+```{r q6a, echo=FALSE}
+customer_data <- customer_data %>% 
+  mutate(age = 2019-Year_Birth)
+```
+
+
+- Create a table using R Markdown code where you calculate by hand the $z$ scores of `age` for the first ten observations in the dataset.  
+
+Observation| Z Score
+-----------|------------
+62         |`r round((62-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+65         |`r round((65-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+54         |`r round((54-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+35         |`r round((35-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+38         |`r round((38-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+52         |`r round((52-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+48         |`r round((48-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+34         |`r round((34-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+45         |`r round((45-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+69         |`r round((69-mean(customer_data$age))/sd(customer_data$age), digits=2)`
+
+>The formula is $(observed - mean) / sd$, must show some of that work here.
+
+- What features of a quantitative variable would change if we re-expressed `age` as being in months instead of years?
+
+>The specific values for measures of center and spread would change, but their relationship to each other would remain the same
+
+- Using proper statistical notation, describe the Normal model for `age`
+
+>$N(`r round(mean(customer_data$age), digits=2)`, `r round(sd(customer_data$age), digits=2)`)$
+
+- Using the Normal model for `age`, between what range should 2.5% and 97.5% of people's ages be? How about between 16% and 84%? 
+
+>We have an assumption that `age` is normally distributed, so we can use the "68-95-99.7 Rule" to calculate. The range from 2.5%-97.5% are within 2 sd of the mean, that is `r round(mean(customer_data$age)-2*sd(customer_data$age), digits=2)` to `r round(mean(customer_data$age)+2*sd(customer_data$age), digits=2)` years. The range from 16% to 84% are within 1 sd of the mean, which is `r round(mean(customer_data$age)-sd(customer_data$age), digits=2)` to `r round(mean(customer_data$age)+sd(customer_data$age), digits=2)` years. 
+
+- How many standard deviations (using the conditional distribution) above or below the conditional mean of `age` for the education level `College` is the observation with the `ID` of `7247`? How many standard deviations above or below the dataset mean for `age` is the observation with the `ID` of `5602`?
+
+```{r q6b, echo=FALSE}
+college.customers <- customer_data %>% 
+  filter(Education=="College")
+```
+
+>For `age` of customers with a college degree, the Normal model is $N(`r round(mean(college.customers$age), digits=2)`, `r round(sd(college.customers$age), digits=2)`)$, the age of customer `ID 7247` is `r college.customers$age[college.customers$ID==7247]`. z=(`r college.customers$age[college.customers$ID==7247]`-`r round(mean(college.customers$age), digits=2)`)/`r round(sd(college.customers$age), digits=2)`=`r round((college.customers$age[college.customers$ID==7247]-mean(college.customers$age))/sd(college.customers$age), digits=2)`. 
+
+>For `age` of customers overall, the Normal model is $N(`r round(mean(customer_data$age), digits=2)`, `r round(sd(customer_data$age), digits=2)`)$, age of the customer with the `ID` of `5602` is `r customer_data$age[customer_data$ID==5602]`. z=(`r customer_data$age[customer_data$ID==5602]`-`r round(mean(customer_data$age), digits=2)`)/`r round(sd(customer_data$age), digits=2)`=`r round((customer_data$age[customer_data$ID==5602]-mean(customer_data$age))/sd(customer_data$age), digits=2)`. 
+
+>**Points of emphasis:**
+>
+>- Must show work on calculating z scores
+>- Must show understanding of percentiles of the normal distribution
+>- Must correctly discover and calculate the conditional distribution for education
+
+### Q7: Relationship between variables (15 points)
+
+- Make a scatterplot of `MntMeatProducts` as a function of `Income` and colored by whether the family has children. Add a smoother and label any outlier points using `geom_text()`.
+
+```{r q7a}
+customer_data <- customer_data %>% 
+  mutate(has_children = ifelse(children>0,1,0)) %>% 
+  mutate(has_children = factor(has_children, levels=c(0, 1), labels=c("No", "Yes")))
+
+ggplot(customer_data, aes(Income, MntMeatProducts)) +
+  geom_point(aes(color=has_children), alpha = 0.5, position = "jitter")+
+  geom_smooth(method = "lm", se = FALSE) + 
+  geom_text(data=customer_data[customer_data$MntMeatProducts > 1500,], aes(label=ID), size=3, vjust=2) +
+  labs(title="Relationship between income and amount spent on meat", 
+       x="Income", 
+       y="Amount spent on meat",
+       caption="Outliers labeled with customer ID number") +
+  scale_color_discrete(name = "Has children")
+```
+    
+1. Do you think there is a clear pattern? Describe the association between `MntMeatProducts` and `Income`.
+
+> There appears to be a relatively clear pattern.
+    
+>+ Direction - positive
+>+ Form - Not linear
+>+ Strength - Stronger for higher levels of income, no relationship at lower levels
+>+ Outliers - there are two outliers, one at zero income and one at high income - possibly mistakes
+    
+2. What do you estimate the correlation to be in this instance, without using technology?
+    
+>+ I would estimate a relatively weak correlation, maybe 0.4. Any reasonable guess is ok here.
+    
+3. Check the conditions for correlation
+    
+>+ Quantitative variables condition: both are quantitative
+>+ Straight enough condition: the relationship is not very straight
+>+ No outliers condition: there are two outliers that might affect the correlation
+    
+4. Find and interpret the correlation coefficient for this relationship
+    
+>The correlation is `r round(cor(customer_data$MntMeatProducts, customer_data$Income, , use="complete.obs"), digits=2)`. That indicates a stronger relationship than expected, perhaps due to the outliers.
+    
+5. Does the relationship vary according to whether the respondent has children?
+    
+```{r q7b}
+ggplot(customer_data, aes(Income, MntMeatProducts, color=has_children)) +
+  geom_point(aes(color=has_children), alpha = 0.5, position = "jitter")+
+  geom_smooth(method = "lm", se = FALSE) + 
+  labs(title="Relationship between income and amount spent on meat", 
+       x="Income", 
+       y="Amount spent on meat") +
+  scale_color_discrete(name = "Has children")
+```
+
+>The relationship does appear to vary somewhat by whether the customer has children though it is a bit hard to tell with the data. 
+
+- Make a scatterplot of `MntFishProducts` as a function of `Income` and colored by whether the family has children. Add a smoother and label any outlier points using `geom_text()`.
+
+```{r q7c}
+ggplot(customer_data, aes(Income, MntFishProducts)) +
+  geom_point(aes(color=has_children), alpha = 0.5, position = "jitter")+
+  geom_smooth(method = "lm", se = FALSE) + 
+  geom_text(data=customer_data[customer_data$Income > 150000,], aes(label=ID), size=3, vjust=2, hjust=1) +
+  labs(title="Relationship between income and amount spent on fish products", 
+       x="Income", 
+       y="Amount spent on fish products",
+       caption="Outliers labeled with customer ID number") +
+  scale_color_discrete(name = "Has children")
+```
+
+
+1. Do you think there is a clear pattern? Describe the association between `MntFishProducts` and `Income`.
+    
+> There appears to be a relatively clear pattern.
+    
+>+ Direction - positive
+>+ Form - not very linear
+>+ Strength - not that straight
+>+ Outliers - only obvious outlier is the case with high income but never buys fish products
+    
+2. What do you estimate the correlation to be in this instance, without using technology?
+    
+>+ I would estimate a weak correlation, maybe 0.3. Any reasonable guess is ok here.
+    
+3. Check the conditions for correlation
+    
+>+ Quantitative variables condition: both are quantitative
+>+ Straight enough condition: it seems not so straight
+>+ No outliers condition: tbere is no real outlier in this plot so this seems ok
+    
+4. Find and interpret the correlation coefficient for this relationship
+    
+>The correlation is `r round(cor(customer_data$MntFishProducts, customer_data$Income, use="complete.obs"), digits=2)`. That indicates a middling relationship.
+
+5. Does the relationship vary according to whether the respondent has children?
+    
+```{r q7d}
+ggplot(customer_data, aes(Income, MntFishProducts, color=has_children))+
+  geom_point(alpha = 0.5, position = "jitter")+
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title="Relationship between income and amount spent on fish products", 
+       x="Income", 
+       y="Amount spent on fish products") +
+  scale_color_discrete(name = "Has children")
+```
+
+>It does not appear to vary much by category, perhaps a change in intercept
+
+>**Points of emphasis:**
+>
+>- Must have Income on the x axis
+>- Must have a well-made plot with appropriate labels for the legend (including titles and value labels)
+>- Must correctly interpret the characteristics of the relationships
+>- Correlation should be properly understood and interpreted
+
+### Q8: Putting it all together (10 points)
+
+Through the analysis conducted in the previous section **and through at least one additional investigation of your own (an additional graph, table, or calculation)**, write two to three paragraphs outlining what you think are the main findings and things that you would this grocery firm focuses on in future marketing. What information are we missing in this dataset that we would need to better target future marketing efforts?
+
+>- Analysis here can vary but must be at least two paragraphs
+>- Should accurately summarize the information discovered by answering the previous questions
+>- B-level answer will conduct a shallow additional analysis, A-level answer will show interesting additional analysis that builds on previous answers
+>- Shows a good understanding of the limits of this dataset
+>- Should be as precise as possible, don't use general statements when you can be more specific

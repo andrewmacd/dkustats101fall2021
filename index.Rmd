@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Course at a glance
 
 * Monday/Wednesday class at 8:10 pm China time (see Slack for Zoom class link)
-* Thursday lab 2:45-5:15 pm China time 
+* Thursday lab 3:00-5:00 pm China time 
 * Office hours Tuesday/Friday 9:00-11:00 am China time (see Slack for Zoom link)
 * Pre-class warmup quiz due at 8:00 pm before each class
 * Homeworks are all due on Sunday at 11:59 pm

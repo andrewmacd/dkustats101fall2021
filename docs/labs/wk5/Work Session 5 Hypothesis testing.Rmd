@@ -1,0 +1,93 @@
+---
+title: "Work Session 4 worksheet - hypothesis testing"
+author: "Student"
+date: "9/23/2021"
+output:
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(tidyverse)
+library(knitr)
+
+theme_set(theme_classic())
+
+student.info <- read.csv("student.drinking.cleaned.csv")
+```
+
+# Practicing hypotheses tests
+
+* Learning objectives:
+  + Think about how to judge the results of a hypothesis test
+  + Practice formulating hypotheses
+  + Imagine what are important policy responses given certain outcomes
+  + Consider $p$ value vs. confidence interval hypothesis tests
+
+# Setup
+
+To start:
+
+* Import `student.drinking.cleaned.csv` - a survey of Portuguese youth - your sample
+
+Some basic facts about youth worldwide (treat these as population means/proportions):
+
+* According to a paper titled, “Youth Drinking Rates and Problems: A Comparison of European Countries and the United States” by Friese and Grube, the average problem drinking rate in Europe is about 19%. 
+
+* According to [one study](https://www.statista.com/statistics/377585/household-internet-access-in-eu28/), in 2008, the number of households in Europe with Internet access was about 60%
+
+* According to [another study](http://strongerfamilies.eu/about-us-2/one-parent-families-in-europe/), about 10% of families in Europe are single-parent families
+
+* According to [a final study](https://www.pewinternet.org/2015/10/01/basics-of-teen-romantic-relationships/), about 19% of US students are in a romantic relationship
+
+# Part 1: Planning & Identification
+
+* What are the variables that map to these outcomes in your dataset?
+
+* For each of these three variables, consider the following questions:
+  + What, in your opinion, would be a substantively significant difference from these means? Make some notes about this.
+  + How much proof (i.e. what is the alpha value) would you want to see before deciding that the proportions/means are different in your sample?
+  + Is a one-tailed or two-tailed test more appropriate here?
+
+* Now, generate alternative and null hypotheses, fully specify the hypotheses including tail-ness and alpha value.
+
+# Part 2: Data analysis
+
+* For the following questions, make a small table (in Word is ok).
+
+* For the first column, enter the population percentage of each variable based on the information in the introduction
+
+* For the second column, add: 
+  + What is the percentage of students with Internet in their home in the sample (`internet.at.home` variable)?
+  + What is the percentage of students who have single family homes in the sample (`parent.status` variable)?
+  + What is the percentage of students who are in a romantic relationship in the sample (`has.romantic.partner` variable)?
+
+* Hint: you can use the `table(<variable>)` function to see the distribution of your categorical variables
+
+# Part 3: Confidence intervals
+
+* Add a new column to your table. Calculate, by hand, the confidence interval for each of the variables in your table
+  + Check the conditions for a confidence interval
+  + Interpret these confidence intervals
+  + How useful do the confidence intervals seem?
+
+# Part 4: Hypothesis testing
+
+* For the next column, calculate, by hand, the $p$ value testing whether or not the difference between your observed survey response and the population averages is simply due to random chance. 
+
+  + Remember to use the null hypothesis $p$ and $q$ values for calculating the SE
+
+* Check the conditions for hypothesis testing
+
+* According to your results for the $p$ value, for which variables can you conclude that the difference is not due to random chance based on your tailed test and your alpha value? Why did you make that decision?
+
+# Part 5: Interpretation
+
+* What is the difference between confidence intervals and hypothesis tests? What different information do they provide?
+
+* What would you recommend to Portuguese policymakers if they are considering considering new government programs to help youth? Why?
+

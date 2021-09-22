@@ -62,7 +62,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Hypothesis Testing
 
-* Lecture webpage:
+* Lecture webpage: [Lecture 10: Hypothesis Testing](https://andrewm.shinyapps.io/Lecture10-HypothesisTesting/)
 * Recording:
 
 ### Hypothesis Testing Wisdom
@@ -107,6 +107,8 @@ knitr::opts_chunk$set(echo = TRUE)
 * Lab files [Lab 4 - Sampling Distributions](labs/wk4/lab4.zip)
 
 ## Week 5: Hypothesis Testing
+
+* Lab files [Lab 5 - Hypothesis Testing](labs/wk5/lab5.zip)
 
 ## Week 6: $t$ tests
 

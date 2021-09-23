@@ -190,8 +190,6 @@ Topics covered:
 >
 >- [Inference for Categorical Data in R, chapter 1](https://learn.datacamp.com/courses/inference-for-categorical-data-in-r)
 
->**[Homework 2 check](https://sakai.duke.edu/x/RjcZ8f) Due Sunday, September 26th at 11:59 pm China time**
-
 ### Monday, September 27th: Hypothesis Testing Wisdom
 
 Reading to do before class: Chapter 16
@@ -220,6 +218,8 @@ Topics covered:
 - Assumptions and conditions for two-sample hypothesis tests
 - Two-sample z test
 - Two-sample t test
+
+>**[Homework 2 check](https://sakai.duke.edu/x/RjcZ8f) Due Wednesday, September 29th at 11:59 pm China time**
 
 >**Lab Due on Friday, October 1st at 11:59 pm China time:** 
 >

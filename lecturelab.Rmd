@@ -67,7 +67,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Hypothesis Testing Wisdom
 
-* Lecture webpage:
+* Lecture webpage: [Lecture 11: Hypothesis Testing Wisdom](https://andrewm.shinyapps.io/Lecture10-HypothesisWisdom/)
 * Recording:
 
 ## Unit 4: Statistical Inference

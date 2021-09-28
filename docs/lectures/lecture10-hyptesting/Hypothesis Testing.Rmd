@@ -55,13 +55,15 @@ p <- 13
 q <- 11
 p.frac <- p/(p+q)
 q.frac <- q/(p+q)
-sd.p <- sqrt(p.frac*q.frac/(p+q))
-z.p <- (p.frac - 0.656)/sd.p
+p.null <- 0.656
+q.null <- 1-p.null
+se.p <- sqrt(p.null*q.null/(p+q))
+z.p <- (p.frac - 0.656)/se.p
 p.val.p <- pnorm(z.p)
 
 p.frac <- round(p.frac, digits=3)
 q.frac <- round(q.frac, digits=3)
-sd.p <- round(sd.p, digits=3)
+se.p <- round(se.p, digits=3)
 z.p <- round(z.p, digits=3)
 p.val.p <- round(p.val.p, digits=3)
 ```
@@ -79,7 +81,9 @@ p.val.p <- round(p.val.p, digits=3)
 
 ### King county
 
-![King County Views](www/king.county.jpg)
+```{r kingcounty, echo=FALSE, out.width="100%", fig.cap="One sided test"}
+knitr::include_graphics("www/king.county.jpg")
+```
 
 ### Percent of houses with a view
 
@@ -239,7 +243,9 @@ view.dist.plot
 
 ### Hypotheses about breakfast
 
-![Breakfast Study](www/breakfast.png)
+```{r breakfaststudy, echo=FALSE, out.width="100%", fig.cap="One sided test"}
+knitr::include_graphics("www/breakfast.png")
+```
 
 What would our hypotheses be if we did a study of DKU students and compared it to the percentage found in this paper (treat it as the population mean)?
 
@@ -277,7 +283,7 @@ sample(classroster$name, 1)
 
 * Test statistics
   + $z = \frac{\hat{p}-p_0}{SD(\hat{p})}$
-  + $SD(\hat{p}) = \sqrt{\frac{p_0q_0}{n}}$
+  + $SE(\hat{p}) = \sqrt{\frac{p_0q_0}{n}}$
 
 What conditions do we need to check to do a 1-proportion $z$ test?
 
@@ -305,8 +311,8 @@ sample(classroster$name, 1)
   + `r p` students in our class ate breakfast.
 
 * Find $p$ value
-  + $SD(\hat{p})=\sqrt{\frac{`r p.frac` `r q.frac`}{`r p+q`}}$
-  + $z$ score of difference = $\frac{`r p.frac` - 0.656}{`r sd.p`} = `r z.p`$
+  + $SE(\hat{p})=\sqrt{\frac{`r p.null`\cdot`r q.null`}{`r p+q`}}$
+  + $z$ score of difference = $\frac{`r p.frac` - 0.656}{`r se.p`} = `r z.p`$
 
 * Probability of seeing that large a difference: $pnorm(`r z.p`)\rightarrow$ `r (p.val.p)*100*2`% of the time we will see a difference from the mean this large or larger
   + `r 100-(p.val.p*100*2)`% of the time we will see a difference this small or smaller.

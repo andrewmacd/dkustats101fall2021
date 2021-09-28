@@ -51,19 +51,19 @@ hectares.tdiff <- (19.8-mean(vineyards$hectares))/(sd(vineyards$hectares)/sqrt(l
 
 ### $t$ vs. $z$ test
 
-Know $\sigma$ Variable is continuous                     Variable is proportion
-------------- ----------------------                     ----------------------  
-Yes           $z\times SE=z\frac{\sigma}{\sqrt{n}}$      $z\times SE=z\sqrt{\frac{pq}{n}}$  
-No            $t_{df}\times SE=t_{df}\frac{s}{\sqrt{n}}$ Depends on CI vs. hypothesis test
+Know $\sigma$ Variable is continuous                                    Variable is proportion
+------------- ----------------------                                    ----------------------  
+Yes           $z\times SD_{samplingdist}=z\frac{\sigma}{\sqrt{n}}$      $z\times SD_{samplingdist}=z\sqrt{\frac{pq}{n}}$  
+No            $t_{df}\times SE=t_{df}\frac{s}{\sqrt{n}}$                Depends on CI vs. hypothesis test
 
 ### When to use true population parameter
 
-Know $\sigma$ Hypothesis test                   Confidence interval
-------------- ---------------                   -------------------
-Yes           $pq$ from null                    If sample is representative, $pq$
-              $z\times SE=z\sqrt{\frac{pq}{n}}$ $z\times SE=z\sqrt{\frac{pq}{n}}$
-No            $pq$ from null                    Use $\hat{p}\hat{q}$
-              $z\times SE=z\sqrt{\frac{pq}{n}}$ $z\times SE=z\sqrt{\frac{\hat{p}\hat{q}}{n}}$
+Know $\sigma$ Hypothesis test                                  Confidence interval
+------------- ---------------                                  -------------------
+Yes           $pq$ from null                                   If sample is representative, $pq$
+              $z\times SD_{samplingdist}=z\sqrt{\frac{pq}{n}}$ $z\times SD_{samplingdist}=z\sqrt{\frac{pq}{n}}$
+No            $pq$ from null                                   Use $\hat{p}\hat{q}$
+              $z\times SE=z\sqrt{\frac{pq}{n}}$                $z\times SE=z\sqrt{\frac{\hat{p}\hat{q}}{n}}$
 
 ## Choosing the right hypothesis test
 

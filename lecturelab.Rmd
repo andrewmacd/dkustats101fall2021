@@ -63,12 +63,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Hypothesis Testing
 
 * Lecture webpage: [Lecture 10: Hypothesis Testing](https://andrewm.shinyapps.io/Lecture10-HypothesisTesting/)
-* Recording:
+* Recording: [Lecture 10 recording](https://duke.zoom.us/rec/share/AbYeFxqJxkt_1vCubA6flCfoJyOtTREFO7FzFVTV8JZ009bo0mMOCJlVRwQnlGfW.fw612iktq5LyIiK_?startTime=1632311836000)
 
 ### Hypothesis Testing Wisdom
 
 * Lecture webpage: [Lecture 11: Hypothesis Testing Wisdom](https://andrewm.shinyapps.io/Lecture11-HypothesisWisdom/)
-* Recording:
+* Recording: [Lecture 11 recording](https://duke.zoom.us/rec/share/GJFtUpnrPJYhnvRRI1or7bFo6k-ms7mEK31lb7uE1DxE1I6vA7PiAbdvYyfdN2G5.tIAmHcKRrrruJO72?startTime=1632744343000)
 
 ## Unit 4: Statistical Inference
 
@@ -111,5 +111,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * Lab files [Lab 5 - Hypothesis Testing](labs/wk5/lab5.zip)
 
 ## Week 6: $t$ tests
+
+* Lab files [Lab 6 - $t$ Tests](labs/wk6/lab6.zip)
 
 ## Week 7: Article Analysis

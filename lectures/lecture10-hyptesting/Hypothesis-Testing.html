@@ -132,8 +132,10 @@ $(document).ready(function () {
 <div id="section-king-county" class="section level3">
 <h3>King county</h3>
 <div class="figure">
-<img src="www/king.county.jpg" alt="" />
-<p class="caption">King County Views</p>
+<img src="www/king.county.jpg" alt="One sided test" width="100%" />
+<p class="caption">
+One sided test
+</p>
 </div>
 </div>
 <div id="section-percent-of-houses-with-a-view" class="section level3">
@@ -335,8 +337,10 @@ Sampling distribution of view based on n=100
 <div id="section-hypotheses-about-breakfast" class="section level3">
 <h3>Hypotheses about breakfast</h3>
 <div class="figure">
-<img src="www/breakfast.png" alt="" />
-<p class="caption">Breakfast Study</p>
+<img src="www/breakfast.png" alt="One sided test" width="100%" />
+<p class="caption">
+One sided test
+</p>
 </div>
 <p>What would our hypotheses be if we did a study of DKU students and compared it to the percentage found in this paper (treat it as the population mean)?</p>
 <div class="tutorial-exercise" data-label="picker1" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -374,7 +378,7 @@ Sampling distribution of view based on n=100
 <li><p>Test statistics</p>
 <ul>
 <li><span class="math inline">\(z = \frac{\hat{p}-p_0}{SD(\hat{p})}\)</span></li>
-<li><span class="math inline">\(SD(\hat{p}) = \sqrt{\frac{p_0q_0}{n}}\)</span></li>
+<li><span class="math inline">\(SE(\hat{p}) = \sqrt{\frac{p_0q_0}{n}}\)</span></li>
 </ul></li>
 </ul>
 <p>What conditions do we need to check to do a 1-proportion <span class="math inline">\(z\)</span> test?</p>
@@ -403,12 +407,12 @@ Sampling distribution of view based on n=100
 </ul></li>
 <li>Find <span class="math inline">\(p\)</span> value
 <ul>
-<li><span class="math inline">\(SD(\hat{p})=\sqrt{\frac{0.542 0.458}{24}}\)</span></li>
-<li><span class="math inline">\(z\)</span> score of difference = <span class="math inline">\(\frac{0.542 - 0.656}{0.102} = -1.124\)</span></li>
+<li><span class="math inline">\(SE(\hat{p})=\sqrt{\frac{0.656\cdot0.344}{24}}\)</span></li>
+<li><span class="math inline">\(z\)</span> score of difference = <span class="math inline">\(\frac{0.542 - 0.656}{0.097} = -1.179\)</span></li>
 </ul></li>
-<li>Probability of seeing that large a difference: <span class="math inline">\(pnorm(-1.124)\rightarrow\)</span> 26% of the time we will see a difference from the mean this large or larger
+<li>Probability of seeing that large a difference: <span class="math inline">\(pnorm(-1.179)\rightarrow\)</span> 23.8% of the time we will see a difference from the mean this large or larger
 <ul>
-<li>74% of the time we will see a difference this small or smaller.</li>
+<li>76.2% of the time we will see a difference this small or smaller.</li>
 <li>Note: <span class="math inline">\(p\)</span> values usually reported as “this large or larger”</li>
 </ul></li>
 </ul>
@@ -421,10 +425,10 @@ Sampling distribution of view based on n=100
 <div id="section-step-4-conclusion" class="section level3">
 <h3>Step 4: conclusion</h3>
 <ul>
-<li><p>Is our sample different than the overall mean of students in the US? <span class="math inline">\(p\)</span> value = 0.26</p></li>
+<li><p>Is our sample different than the overall mean of students in the US? <span class="math inline">\(p\)</span> value = 0.238</p></li>
 <li><p>What can be concluded? What does the <span class="math inline">\(p\)</span> value mean?</p>
 <ul>
-<li><p><span class="math inline">\(p\)</span> value = 0.26 <span class="math inline">\(\rightarrow\)</span> Fail to Reject/Reject <span class="math inline">\(H_0\)</span></p></li>
+<li><p><span class="math inline">\(p\)</span> value = 0.238 <span class="math inline">\(\rightarrow\)</span> Fail to Reject/Reject <span class="math inline">\(H_0\)</span></p></li>
 <li><p>The survey data does not provide strong evidence that the rate that DKU students eat breakfast is different than US average.</p></li>
 <li><p>This should not be the end of the conversation.</p></li>
 <li><p>The next step would be to see if the breakfast eating rate is lower for all classes/among freshman/sophomores/etc.</p></li>
@@ -568,13 +572,15 @@ p <- 13
 q <- 11
 p.frac <- p/(p+q)
 q.frac <- q/(p+q)
-sd.p <- sqrt(p.frac*q.frac/(p+q))
-z.p <- (p.frac - 0.656)/sd.p
+p.null <- 0.656
+q.null <- 1-p.null
+se.p <- sqrt(p.null*q.null/(p+q))
+z.p <- (p.frac - 0.656)/se.p
 p.val.p <- pnorm(z.p)
 
 p.frac <- round(p.frac, digits=3)
 q.frac <- round(q.frac, digits=3)
-sd.p <- round(sd.p, digits=3)
+se.p <- round(se.p, digits=3)
 z.p <- round(z.p, digits=3)
 p.val.p <- round(p.val.p, digits=3)
 </script>

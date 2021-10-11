@@ -100,7 +100,6 @@ Find a news article online that discusses how to build a good Magic draft deck f
 * What do you think is a reasonable critical value to select in this case? Choose your own critical value for your hypotheses tests.
 * In this case should you use a one-sided test or two-sided test? 
 * Do these test pass the conditions for a hypothesis test?
-* Check the conditions for hypothesis testing
 * Find the $p$ value for the difference for each color and interpret it with respect to your hypotheses tests.
 * What are, if any, the problems with analyzing the results of five simultaneous hypotheses tests like this?
 
@@ -110,7 +109,6 @@ Find a news article online that discusses how to build a good Magic draft deck f
 * If we observed that the number of wins is different from the population mean at $p$=0.06, should we reject the null hypothesis? Why or why not?
 * In this case, is it more appropriate to use a one-sided or two-sided test?
 * Does this test pass the conditions for hypothesis testing? 
-* Check the conditions for hypothesis testing.
 * Find the $p$ value for the difference between the player's games and the population mean. What can you conclude?
 * What might be some possible lurking variables that might cause this difference (or non difference)? It is ok to speculate but try to be sensible.
   
@@ -119,7 +117,7 @@ Find a news article online that discusses how to build a good Magic draft deck f
 ### Q4a `STX` wins 
 
 * Write out the hypothesis for whether the average number of wins is different than the population mean
-* If we reject the null hypothesis in this case, does that mean that the null hypothesis is true? Why?
+* If we fail to reject the null hypothesis in this case, does that mean that the null hypothesis is true? Why?
 * In your opinion, what $p$ value would you need to see to reject the null hypothesis
 * Based on the previous question, what would you set the alpha level to?
 * Let's say the data suggests that you should reject the null hypothesis. What size of difference in wins would you need to see to feel there is a *practically* significant difference? 
@@ -129,13 +127,13 @@ Find a news article online that discusses how to build a good Magic draft deck f
 
 * Write out the hypothesis for whether the player plays **more** `RG` decks (splashes included) in `AFR` as a proportion of the total than the average 17Lands user
 * Explain what the difference between a Type I and a Type II error is here
-* Which do you think would be more serious for a coach trying to help this player? Why?
+* Which error type do you think would be more serious for a coach trying to help this player? Why?
 * What are two ways we could reduce the possibility of a Type I error? What are the reasons we may not take those actions to reduce the error?
 * What is the power of this test?
 * How large would a difference have to be to 'matter' in the context of being a coach?
 * By hand (show work), calculate your hypothesis test and interpret the results. 
 
-## Q5 $t$ test (25 points)
+## Q5 Two sample $t$ and $z$ test (25 points)
 
 ### Trophy rate of decks featuring the color white `W` vs. black `B` 
 
@@ -145,8 +143,7 @@ Find a news article online that discusses how to build a good Magic draft deck f
 * Explain in this context what your $p$ value means.  
 * What type of error might your hypothesis conclusion be making? How could you correct for it?  
 * Create a 95% confidence interval for the difference.
-* Interpret your interval.  
-* Carefully explain what your confidence interval means. 
+* Interpret your interval from a statistical perspective and explain its practical meaning.  
 
 ### `AFR` vs. `STX` wins at Diamond level
 

@@ -82,11 +82,6 @@ knitr::opts_chunk$set(echo = TRUE)
 * Lecture webpage: [Lecture 13: Returning to Regression](https://andrewm.shinyapps.io/Lecture13-ReturningtoRegression/)
 * Recording: [Lecture 13 recording](https://duke.zoom.us/rec/share/urV84T5efS4vl-LaOGASuB01jz0INtVjd4SfWR5yb9573XhXfOOyIXidhSrrulwq.AYAqNrszsLTWy_ff?startTime=1633953779000)
 
-### Regression in Practice
-
-* Lecture webpage:
-* Recording:
-
 # Labs
 
 ## Week 1: R and RMarkdown
@@ -114,4 +109,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Lab files [Lab 6 - $t$ Tests](labs/wk6/lab6.zip)
 
-## Week 7: Article Analysis
+## Week 7: Model Building & Article Analysis
+
+* Lab files: [Lab 7a - Model Building](labs/wk7/lab7a.zip)
+* Lab files: [Lab 7b - Article Analysis](labs/wk7/lab7b.zip)

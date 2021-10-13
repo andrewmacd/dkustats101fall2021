@@ -80,7 +80,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Returning to Regression
 
 * Lecture webpage: [Lecture 13: Returning to Regression](https://andrewm.shinyapps.io/Lecture13-ReturningtoRegression/)
-* Recording:
+* Recording: [Lecture 13 recording](https://duke.zoom.us/rec/share/urV84T5efS4vl-LaOGASuB01jz0INtVjd4SfWR5yb9573XhXfOOyIXidhSrrulwq.AYAqNrszsLTWy_ff?startTime=1633953779000)
 
 ### Regression in Practice
 

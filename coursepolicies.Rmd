@@ -88,7 +88,7 @@ I will detail the policy for this course below. Basically, try to learn stuff, d
 
 - Midterm Project **15%**: In the middle of the term, after the first half of the course content, you will asked to write an analysis of a dataset. This paper should use all of knowledge from the first half of class to develop some conclusions developed from the data and should be about 1500 words. **Due September 21st**
 
-- Final Project **25%**: Similar to the midterm project, the final exam will ask you to analyze a dataset using all the strategies we have learned in class. However, for this assignment you will choose your own dataset, ask your own questions of the data, and attempt to answer those questions as best as you can. The paper for this project should be about 2000 words. **Due on October 21st**
+- Final Project **25%**: Similar to the midterm project, the final exam will ask you to analyze a dataset using all the strategies we have learned in class. The paper for this project should be about 2000 words. **Due on October 21st**
 
 - Data Camp Labs **5%**: A number of labs on the website Data Camp will be assigned to you; these labs are pass/fail and you will receive full credit if you complete each of the labs by the specified due date.
 

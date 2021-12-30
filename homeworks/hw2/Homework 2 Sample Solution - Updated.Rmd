@@ -1,0 +1,595 @@
+---
+title: "Homework 2 Sample Solutions"
+author: "Anonymous"
+date: "10/13/2021"
+output:
+  html_document:
+    toc: true
+subtitle: DKU Stats 101 Fall 2021
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+# You should put here any libraries that you will use in your data analysis.
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(gridExtra)
+
+# Change this number to something meaningful to you. This makes sure that you get the same random sample every time
+set.seed(88888888)
+
+# Makes it so significant digits are shown
+options(scipen=999)
+
+mtga.results <- read.csv("mtgresults.cleaned.csv")
+
+mtga.results <- mtga.results %>% 
+  filter(Set=="AFR" | Set=="STX") %>% 
+  filter(Format=="PremierDraft")
+```
+
+## Q1: Literature review (5 points)
+
+Find a news article online that discusses how to build a good Magic draft deck for either of the last two formats mentioned in the introduction and also post it to the Slack `#chat-and-interesting-materials` channel. Read and comment on a few other articles that other students have posted. Based on these articles, what should we expect to find in this dataset and why? Make a bulleted list below with specific expectations according to the data we have in our dataset.
+
+> Any reasonable article will work here
+
+## Q2: Confidence intervals (30 points)
+
+### Q2a: Proportion of decks where green is a major color
+
+* Find the 95% confidence interval of the proportion of decks for this player that have green `G` as a major color - calculate this by hand and show your work
+
+```{r q2a}
+green.data <- mtga.results %>% 
+   summarize(count.g = sum(grepl("G", Colors)),
+             size = n())
+
+p <- green.data$count.g[1] / green.data$size
+q <- 1-p
+n <- green.data$size
+se <- round(sqrt(p*q / n), digits=4)
+moe <- round(qnorm(0.975) * se, digits=4)
+p <- round(p, digits=4)
+q <- round(q, digits=4)
+```
+
+> Formula: $p\pm z^*\times SE$ or $`r p`\pm 1.96\times \sqrt{\frac{`r p`\times`r q`}{`r n`}}$
+
+> $`r p` - 1.96 \times `r se`, `r p` + 1.96 \times `r se`$
+
+> $`r round(p - moe, digits=4)`, `r round(p + moe, digits=4)`$
+
+* Check the conditions of the confidence interval
+
+> Conditions: Independence, Randomization, 10% Condition, Success/Failure Condition
+
+> * Independence: yes, seems so  
+> * Randomization: yes   
+> * 10% condition: yes, we are sampling less than 10% of all possible matches this player could play   
+> * Success/failure: both proportions are over 10   
+
+* Interpret your confidence interval
+
+> We are 95% confident that the true proportion of green decks this player plays is between `r (p-moe)*100`% and `r (p+moe)*100`%
+
+* What sample size would you need to say with 95% confidence that true proportion lies within a plus/minus 0.01 range?
+
+> $0.01 = 1.96 \times \sqrt{\frac{`r p` \times `r q`}{n}}$
+
+> $0.01 \times \sqrt{n} = 1.96 \times \sqrt{`r p` \times `r q`}$
+
+> $\sqrt{n} = \frac{1.96 \times \sqrt{`r p` \times `r q`}}{0.01}$
+
+> ~9471
+
+### Q2b: Trophy rate
+
+* Find the 90% confidence interval of the proportion of decks that received a trophy
+
+```{r q2b}
+trophy.data <- mtga.results %>% 
+   summarize(count.t = sum(grepl("x", Trophy)),
+             size = n())
+
+p <- trophy.data$count.t[1] / trophy.data$size
+q <- 1-p
+n <- trophy.data$size
+se <- round(sqrt(p*q / n), digits=4)
+moe <- round(qnorm(0.975) * se, digits=4)
+p <- round(p, digits=4)
+q <- round(q, digits=4)
+```
+
+> Formula: $p\pm z^*\times SE$ or $`r p`\pm 1.64\times \sqrt{\frac{`r p`\times`r q`}{`r n`}}$
+
+> $`r p` - 1.64 \times `r se`, `r p` + 1.64 \times `r se`$
+
+> $`r round(p - moe, digits=4)`, `r round(p + moe, digits=4)`$
+
+* Check the conditions of the confidence interval
+
+> * Independence: yes, seems so 
+> * Randomization: yes  
+> * 10% condition: yes, we are sampling less than 10% of all possible matches this player could play   
+> * Success/failure: both $p$ and $q$ are over 10   
+
+* Interpret your confidence interval
+
+> We are 90% confident that the true proportion of this player's trophy rate is between 0% and `r (p+moe)*100`%
+
+> Note: confidence interval has a lower bound at 0, so when stating your results make sure to note this
+
+* What would be a specific situation or application for which you would prefer greater certainty and therefore select a 99% confidence interval for this calculation?
+
+> Answers may vary here but, for example, if the coach was estimating the chance the player could quit his/her job and become a professional. The player may be risk adverse and therefore only wish to quit that person's job if the odds of not being a failure could be excluded. You must provide some justification for why a researcher on this question would be interested in making it harder to reject the null hypothesis.
+
+### Q2c: Number of wins at Diamond rank
+
+* Make a histogram of the number of wins per deck when the player is at Diamond rank - what does this histogram indicate about the suitability of the data for making a confidence interval of number of wins?
+
+```{r q2c1}
+diamond.results <- mtga.results %>% 
+  filter(grepl("Diamond", End.Rank))
+
+ggplot(diamond.results, aes(x=W)) +
+  geom_histogram(fill="blue4", color="black") +
+  labs(x="Wins", y="Count", title="Wins at Diamond Rank")
+```
+
+> The distribution of wins is somewhat bimodal with a right skew. However, since the sample size is over 100, according to the Central Limit Theorem, the shape of the distribution will not affect our calculation of the hypothesis test.
+
+* Find the 95% confidence interval of the number of wins - calculate this by hand
+
+```{r q2c2}
+diamond.data <- diamond.results %>% 
+   summarize(mean.wins = mean(W),
+             size = n(),
+             sd.sample = sd(W))
+
+mean.est <- round(diamond.data$mean.wins[1], digits=2)
+sd.sample <- round(diamond.data$sd.sample[1], digits=2)
+n <- diamond.data$size
+se <- round(diamond.data$sd.sample[1] / sqrt(n), digits=2)
+crit.value <- round(qt(0.975, df=n-1), digits=2)
+moe <- round(qt(0.975, df=n-1) * se, digits=2)
+```
+
+> Formula: $\hat{wins}_{mean}\pm t_{n-1}^*\times SE$ or $`r mean.est`\pm `r crit.value`\times \frac{`r sd.sample`}{\sqrt{`r n`}}$
+
+> $`r mean.est` - `r crit.value` \times `r se`, `r mean.est` + `r crit.value` \times `r se`$
+
+> $`r mean.est - moe`, `r mean.est + moe`$
+
+* Check the conditions of the confidence interval
+
+> Conditions: Randomization/Independence, Nearly normal  
+
+> * Randomization, yes
+> * Nearly normal, not really but due to CLT, is ok
+
+* Interpret your confidence interval
+
+> We are 95% confident that the true mean number of wins at diamond rank for this player is between `r mean.est - moe` and `r mean.est + moe`
+
+* How much larger would $n$ have to be to decrease by a factor of four the size of your confidence interval?
+
+> It would have to be 16 times larger. The size of the confidence interval decreases according to the square of the sample size.
+
+* Practically speaking, what does this confidence interval indicate - what can we understand about the average number of wins when at diamond rank?
+
+> Answers may vary, but must make some statement beyond simply restating the confidence interval - something like the average number of wins is relatively narrow/large or some statement about the player capabilities.
+
+### Q2d: Bootstrapping wins at Diamond rank
+
+* Using the existing data, create a 95% bootstrapped confidence interval for the number of wins at diamond rank and show the code you used to create the bootstrapped confidence interval
+
+```{r q2d, echo=TRUE}
+library(infer)
+
+diamond.wins.ci <- diamond.results %>% 
+  specify(response=W) %>% 
+  generate(reps=100000, type="bootstrap") %>% 
+  calculate(stat="mean") %>% 
+  get_confidence_interval(level = 0.95, type = "percentile")
+
+kable(diamond.wins.ci, col.names = c("Lower Bound", "Upper Bound"))
+```
+
+* Compare the results of the bootstrapped confidence interval (with 100000 samples) to you calculated by hand in Q2c - what can you conclude from the difference?
+
+> The values are fairly similar (only off by a small amount); likely because the original sample met the conditions for confidence intervals. It also indicates that bootstrapping also works well to create confidence intervals.
+
+* When would using the bootstrap method be helpful? When would the regular confidence interval be more useful?
+
+> The bootstrap method may be more helpful if our data does not meet some of the conditions of confidence intervals. If the data meet the conditions for using a mathematical method for calculating confidence intervals, using it may be faster and more theoretically accurate than bootstrapping.
+
+## Q3: Hypothesis testing (25 points)
+
+### Q3a Proportion of decks for each color in `STX`
+
+* Make a table and write out a specific hypothesis, fully specified, as to whether the proportion of decks that this player has played that each color in `STX` is different or not than the overall population of 17Lands users. 
+
+```{r q3a1}
+header <- c("Null Hypothesis", "Alternative Hypothesis")
+
+null.hyp <- c("$Pr(Player_W)=Pr(Pop_W)$", "$Pr(Player_U)=Pr(Pop_U)$", 
+              "$Pr(Player_B)=Pr(Pop_B)$", "$Pr(Player_R)=Pr(Pop_R)$", 
+              "$Pr(Player_G)=Pr(Pop_G)$")
+alt.hyp <- c("$Pr(Player_W)\\neq Pr(Pop_W)$", "$Pr(Player_U)\\neq Pr(Pop_U)$",
+             "$Pr(Player_B)\\neq Pr(Pop_B)$", "$Pr(Player_R)\\neq Pr(Pop_R)$",                   
+             "$Pr(Player_G)\\neq Pr(Pop_G)$")
+
+            
+hyp.table <- data.frame(null.hyp, alt.hyp)
+
+kable(hyp.table, col.names = header) %>% 
+  kable_styling()
+```
+
+
+* What do you think is a reasonable critical value to select in this case? Choose your own critical value for your hypotheses tests.
+
+> Answers may vary, remember that a critical value is the $z^*$ value, not $\alpha$
+
+* In this case should you use a one-sided test or two-sided test? 
+
+> Two sided since we don't have any reason to be only interested in errors in one direction
+
+* Do these test pass the conditions for a hypothesis test?
+
+> * Randomization, Independence: yes, somewhat. The independence condition may be violated in a group comparison 
+> * 10% Condition: yes
+> * Nearly normal condition: depends on the sample
+
+* Find the $p$ value for the difference for each color and interpret it with respect to your hypotheses tests.
+
+```{r q3a2} 
+header <- c(header, "Pop Mean", "Player Mean", "$p$ value", "Decision")
+
+pop.mean <- c(0.481, 0.360, 0.475, 0.362, 0.323)
+
+stx.results <- mtga.results %>% 
+  filter(Set=="STX")
+
+color.data <- stx.results %>% 
+   summarize(white = round(sum(grepl("W", Colors)) / n(), 3),
+             white.n = sum(grepl("W", Colors)),
+             blue = round(sum(grepl("U", Colors)) / n(), 3),
+             blue.n = sum(grepl("U", Colors)),
+             black = round(sum(grepl("B", Colors)) / n(), 3), 
+             black.n = sum(grepl("B", Colors)),
+             red = round(sum(grepl("R", Colors)) / n(), 3), 
+             red.n = sum(grepl("R", Colors)),
+             green = round(sum(grepl("G", Colors)) / n(), 3),
+             green.n = sum(grepl("G", Colors)),)
+
+player.mean <- c(color.data$white, color.data$blue, color.data$black, color.data$red, color.data$green)
+
+# formula is sqrt(P * 1-P / n)
+est.sigma <- c(sqrt((0.481 * (1-0.481))/ color.data$white.n), 
+               sqrt((0.360 * (1-0.360))/ color.data$blue.n),
+               sqrt((0.475 * (1-0.475))/ color.data$black.n),
+               sqrt((0.362 * (1-0.362))/ color.data$red.n),
+               sqrt((0.323 * (1-0.323))/ color.data$green.n))
+
+# formula is z = p-P / sigma
+p.value <- c(round(1-pnorm((color.data$white - 0.481)/est.sigma[1]), 3) * 2,
+             round(1-pnorm((color.data$blue - 0.360)/est.sigma[2]), 3) * 2,
+             round(1-pnorm((color.data$black - 0.475)/est.sigma[3]), 3) * 2,
+             round(1-pnorm((color.data$red - 0.362)/est.sigma[4]), 3) * 2,
+             round(1-pnorm((color.data$green - 0.323)/est.sigma[5]), 3) * 2)
+
+decision <- c("Fail to reject", "Reject", "Fail to reject", "Fail to reject", "Fail to reject")
+
+hyp.results <- data.frame(hyp.table, pop.mean, player.mean, p.value, decision)
+
+kable(hyp.results, col.names = header) %>% 
+  kable_styling()
+```
+
+
+* What are, if any, the problems with analyzing the results of five simultaneous hypotheses tests like this?
+
+> One obvious problem is that the choice of colors is not independent; colors are selected to pair with each other. So the most popular color pair will influence both colors in the hypothesis test. A related problem is that if one color is selected, this will mean that other colors must be necessarily chosen less frequently. 
+
+### Q3b `AFR` win rate
+
+> Note the text of the question has changed from the original assignment
+
+```{r q3b1}
+afr.results <- mtga.results %>% 
+  filter(Set=="AFR")
+
+afr.win.rate <- afr.results %>% 
+  summarize(win.rate = sum(W)/ (sum(W) + sum(L)),
+            size = sum(W) + sum(L))  
+```
+
+* Write out a specific hypothesis, fully specified with correct notation, as to whether the player's `AFR` win rate is different than the 17Lands user `AFR` win rate.
+
+> $H_0: \mu = 0.552$, $H_a: \mu \neq 0.552$
+
+* If we observed that the number of wins is different from the population mean at $p$=0.06, should we reject the null hypothesis? Why or why not?
+
+> Without a cutoff p value ($\alpha$), we can't really say.
+
+* In this case, is it more appropriate to use a one-sided or two-sided test?
+
+> Two sided since we don't have any reason to be only interested in errors in one direction
+
+* Does this test pass the conditions for hypothesis testing? 
+
+> * Independence: yes, seems so 
+> * Randomization: yes, seems so 
+> * 10% condition: yes, we are sampling less than 10% of all possible matches this player could play   
+> * Success/failure: both $p$ and $q$ are over 10   
+
+* Find the $p$ value for the difference between the player's games and the population mean. What can you conclude?
+
+```{r q3b2}
+se.wins <- sqrt((0.552 * (1-0.552)) / afr.win.rate$size)
+
+p.value <- round(pnorm((afr.win.rate$win.rate - 0.552) / se.wins), 3)*2
+
+kable(data.frame(p.value, "Reject at $\\alpha=0.05$"), 
+      col.names = c("$p$ value", "Conclusion"),
+      align="r")
+```
+
+* What might be some possible lurking variables that might cause this difference (or non difference)? It is ok to speculate but try to be sensible.
+
+> Answers will vary here, one possible lurking variable is that the player's rank matters - the average rank of 17Lands players may be at a lower rank where it is easier to get wins compared to the player being analyzed here.
+
+## Q4: Hypothesis testing wisdom (25 points)
+
+### Q4a `STX` wins 
+
+```{r q4a1}
+stx.win.rate <- stx.results %>% 
+  summarize(win.rate = sum(W)/ (sum(W) + sum(L)),
+            size = sum(W) + sum(L))  
+```
+
+* Write out the hypothesis for whether the average number of wins is different than the population mean
+
+> $H_0: \mu = `r 0.549`$, $H_a: \mu \neq `r 0.549`$
+
+* If we fail to reject the null hypothesis in this case, does that mean that the null hypothesis is true? Why?
+
+> No, failing to reject the null hypothesis just means we don't have enough evidence to say that the null hypothesis is not true.
+
+* In your opinion, what $p$ value would you need to see to reject the null hypothesis
+
+> Answers may vary but 0.05 is a reasonable starting point
+
+* Based on the previous question, what would you set the alpha level to?
+
+> Answers may vary but 0.05 is a reasonable starting point
+
+* Let's say the data suggests that you should reject the null hypothesis. What size of difference in wins would you need to see to feel there is a *practically* significant difference? 
+
+> Answers may vary here.
+
+* By hand (show work), calculate your hypothesis test and interpret the results.
+
+```{r q4a2}
+se <- round(sqrt((0.549 * (1-0.549)) / stx.win.rate$size), digits=3)
+z.distance <- round((stx.win.rate$win.rate-0.549) / se, digits=3)
+p.value <- round(pnorm(z.distance), digits=3)
+```
+
+> ((`r stx.win.rate$size`-`r 0.549`)/sqrt((0.549 * (1-0.549)) / `r stx.win.rate$size`)) -> about `r z.distance`
+
+> pnorm(`r z.distance`) = `r p.value`; `r p.value`*2 = p = `r p.value*2`
+
+> We can reject the null hypothesis of no difference at a 0.05 level
+
+### Q4b `RG` decks in `AFR`
+
+```{r q4b1}
+rg.afr <- afr.results %>% 
+  summarize(play.rate = sum(grepl("RG", Colors)) / n(),
+            size=n())
+```
+
+* Write out the hypothesis for whether the player plays **more** `RG` decks (splashes included) in `AFR` as a proportion of the total than the average 17Lands user
+
+> $H_0: \mu = 0.104$, $H_a: \mu > 0.104$
+
+* Explain what the difference between a Type I and a Type II error is here
+
+> * A type I: null is true but we mistakenly reject it. We conclude that the percentage of `RG` decks played by the player is greater than the population when it is actually the same
+> * A type II: the alternative is true but we mistakenly fail to reject the null hypothesis. We do not conclude that the player plays more `RG` decks compared to the population when s/he actually does.
+
+* Which error type do you think would be more serious for a coach trying to help this player? Why?
+
+> Answers may vary. It isn't obvious which is worse so any answer with a reasonable justification is ok.
+
+* What are two ways we could reduce the possibility of a Type I error? What are the reasons we may not take those actions to reduce the error?
+
+> We could increase the sample size or increase the power of the test by increasing alpha. Increasing the power of the test results in a greater chance of a Type I error. Increasing the sample size may increase the cost of the study.
+
+* What is the power of this test?
+
+> The power is $1-\beta$, where $\beta$ is the probability of committing a Type II error
+
+* How large would a difference have to be to 'matter' in the context of being a coach?
+
+> Answers may vary but I would consider something around 5% to start to be meaningful.
+
+* By hand (show work), calculate your hypothesis test and interpret the results. 
+
+```{r q4b2}
+se <- sqrt((0.104 * (1-0.104)) / rg.afr$size)
+z.distance <- (rg.afr$play.rate-0.104) / se
+p.value <- pnorm(-abs(z.distance))
+
+se <- round(se, digits=3)
+z.distance <- round(z.distance, digits=3)
+p.value <- round(p.value, digits=3)
+```
+
+> ((`r rg.afr$play.rate`-`r 0.104`)/sqrt((0.104 * (1-0.104)) / `r rg.afr$size`)) -> about `r z.distance`
+
+> pnorm(`r z.distance`) = `r p.value` (since a one-sided test)
+
+> We cannot reject the null hypothesis of no difference at a 0.05 level
+
+## Q5 Two sample $t$ and $z$ test (25 points)
+
+### Trophy rate of decks featuring the color white `W` vs. black `B` 
+
+* Write appropriate hypotheses.  
+
+> $H_0: Trophy_W % = Trophy_B %$, $H_a:  Trophy_W % \neq Trophy_B$
+
+* Are the assumptions and conditions necessary for inference  satisfied?  
+
+> * Independence: yes, seems so 
+> * Randomization: yes, seems so 
+> * Independent Groups: no, in particular, decks can be WB so we know already that the two groups have some overlap 
+> * Success/failure: both $p$ and $q$ are over 10   
+
+* Test the hypothesis and state your conclusion.  
+
+```{r q5a1}
+white <- mtga.results %>% 
+  filter(grepl("W", Colors))
+
+black <- mtga.results %>% 
+  filter(grepl("B", Colors))
+
+white.results <- white %>% 
+  summarize(trophy.rate = sum(grepl("x", Trophy) / n()),
+            size = n())
+
+black.results <- black %>% 
+    summarize(trophy.rate = sum(grepl("x", Trophy) / n()),
+            size = n())
+
+joint.se = sqrt((white.results$trophy.rate * (1-white.results$trophy.rate) / white.results$size) +
+                (black.results$trophy.rate * (1-black.results$trophy.rate) / black.results$size)) 
+joint.se = round(joint.se, digits=3)
+
+z.score = (white.results$trophy.rate - black.results$trophy.rate) / joint.se
+z.score = round(z.score, digits=3)
+
+p.value = 1-pnorm(z.score)
+p.value = round(p.value, digits=3)
+```
+
+> ((`r white.results$trophy.rate`-`r black.results$trophy.rate`)/`r joint.se` -> about `r z.score`
+
+> pnorm(`r z.score`) = `r p.value`; `r p.value`*2 = p = `r (p.value)*2`
+
+> We cannot reject the null hypothesis of no difference at a 0.05 level
+
+* Explain in this context what your $p$ value means.  
+
+> Assuming the null hypothesis is true, about `r p.value*100`% of samples would have a difference this large or larger between the two groups just by chance.
+
+* What type of error might your hypothesis conclusion be making? How could you correct for it? 
+
+> This conclusion has the risk of being a Type II error, in which we fail to reject the null hypothesis even though we should reject it. We could reduce this risk by increasing the sample size or increasing $\alpha$. 
+
+* Create a 95% confidence interval for the difference.
+
+```{r q5a2}
+trophy.rate.diff <- white.results$trophy.rate - black.results$trophy.rate
+
+conf.int <- c(trophy.rate.diff - qnorm(0.975)*joint.se, trophy.rate.diff + qnorm(0.975)*joint.se)
+```
+
+> `r white.results$trophy.rate` - `r black.results$trophy.rate` +- z* * `r joint.se`
+
+> `r conf.int`
+
+* Interpret your interval from a statistical perspective and explain its practical meaning.  
+
+> We can be 95% confident that the difference between trophy rates of white and black decks for this player is between `r conf.int`
+
+### `AFR` vs. `STX` wins at Diamond level
+
+```{r q5b1}
+diamond.results <- mtga.results %>% 
+  filter(grepl("Diamond", End.Rank))
+
+stx.diamond <- diamond.results %>% 
+  filter(Set=="STX")
+
+afr.diamond <- diamond.results %>% 
+  filter(Set=="AFR")
+```
+
+* Write out the hypothesis for whether the player has a higher number of average wins in `AFR` vs. `STX` at Diamond level. 
+
+> $H_0: \bar{Wins}_{AFR} = \bar{Wins}_{STX}, H_a: \bar{Wins}_{AFR} \neq \bar{Wins}_{STX}$
+
+* Are the assumptions and conditions necessary for inference  satisfied? Explain. 
+
+> * Independence: yes, seems so 
+> * Randomization: yes, seems so 
+> * Independent groups: seems unlikely that the two groups are truly independent 
+> * Nearly normal: roughly, yes  
+
+```{r q5b2}
+p1 <- ggplot(stx.diamond, aes(x=W)) +
+  geom_histogram(color="black", fill="blue") +
+  labs(x="Wins", y="Frequency", title="Histogram of Wins at Diamond in STX")
+
+p2 <- ggplot(afr.diamond, aes(x=W)) +
+  geom_histogram(color="black", fill="blue") +
+  labs(x="Wins", y="Frequency", title="Histogram of Wins at Diamond in AFR")
+
+grid.arrange(p1, p2)
+```
+
+
+* In this case, should you be using pooled variance?
+
+> Since this is a hypothesis of a difference in means (not proportions) and it is not an experiment, you should not be using pooled variance here.
+
+* Create a 95% confidence interval for the difference in the average number of wins 
+
+```{r q5b3}
+stx.diamond.results <- stx.diamond %>% 
+  summarize(mean.wins = mean(stx.diamond$W),
+            size = sum(stx.diamond$W))
+
+afr.diamond.results <- afr.diamond %>% 
+  summarize(mean.wins = mean(afr.diamond$W),
+            size = sum(stx.diamond$W))
+
+num.wins.diff <- stx.diamond.results$mean.wins - afr.diamond.results$mean.wins
+num.wins.diff <- round(num.wins.diff, digits=3)
+
+joint.se <- sqrt((sd(stx.diamond$W) / length(stx.diamond$W)) + (sd(afr.diamond$W) / length(afr.diamond$W)))
+joint.se <- round(joint.se, digits=3)
+
+conf.int <- c(num.wins.diff - qt(0.975, df=afr.diamond.results$size-1)*joint.se, 
+              num.wins.diff + qt(0.975, df=afr.diamond.results$size-1)*joint.se)
+conf.int <- round(conf.int, digits=3)
+```
+
+> `r stx.diamond.results$mean.wins` - `r afr.diamond.results$mean.wins` +- t(50)*  * `r joint.se`
+
+> `r conf.int`
+
+* Interpret your interval in this context.  
+
+> We are 95% confident that the true difference in win rates between STX and AFR is between `r conf.int`
+
+* Does this confidence interval suggest that the average number of wins at diamond level is different between the two sets? Explain.
+
+> We cannot reject the null hypothesis of no difference
+
+## Q6: Putting it all together (25 points)
+
+Through the analysis above **and** your own additional analysis, write two to three paragraphs outlining what you think are the main things we learned through our analysis of used car prices. What information are we missing in this dataset that we would need to truly understand used car prices?
+
+> Answers will vary

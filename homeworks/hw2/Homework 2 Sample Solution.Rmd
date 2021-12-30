@@ -1,0 +1,496 @@
+---
+title: "Homework 2 Sample Solutions"
+author: "Anonymous"
+date: "10/13/2021"
+output:
+  html_document:
+    toc: true
+subtitle: DKU Stats 101 Fall 2021
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+# You should put here any libraries that you will use in your data analysis.
+library(tidyverse)
+library(knitr)
+
+# Change this number to something meaningful to you. This makes sure that you get the same random sample every time
+set.seed(88888888)
+
+# Makes it so significant digits are shown
+options(scipen=999)
+
+mtga.results <- read.csv("mtgresults.cleaned.csv")
+
+mtga.results <- mtga.results %>% 
+  filter(Set=="AFR" | Set=="STX")
+```
+
+## Q1: Literature review (5 points)
+
+Find a news article online that discusses how to build a good Magic draft deck for either of the last two formats mentioned in the introduction and also post it to the Slack `#chat-and-interesting-materials` channel. Read and comment on a few other articles that other students have posted. Based on these articles, what should we expect to find in this dataset and why? Make a bulleted list below with specific expectations according to the data we have in our dataset.
+
+> Any reasonable article will work here
+
+## Q2: Confidence intervals (30 points)
+
+### Q2a: Proportion of decks where green is a major color
+
+* Find the 95% confidence interval of the proportion of decks for this player that have green `G` as a major color - calculate this by hand and show your work
+
+```{r q2a}
+green.data <- mtga.results %>% 
+   summarize(count.g = sum(grepl("G", Colors)),
+             size = n())
+
+p <- green.data$count.g[1] / green.data$size
+q <- 1-p
+n <- green.data[1]
+se <- round(sqrt(p*q / n), digits=4)
+moe <- round(qnorm(0.975) * se, digits=4)
+```
+
+> Formula: $p\pm z^*\times SE$ or $`r p`\pm 1.96\times \sqrt{\frac{`r p`\times`r q`}{`r n`}}$
+
+> $`r p` - 1.96 \times `r se`, `r p` + 1.96 \times `r se`$
+
+> $`r p - moe`, `r p + moe`$
+
+* Check the conditions of the confidence interval
+
+> Conditions: Independence, Randomization, 10% Condition, Success/Failure Condition
+
+> Independence: yes, seems so  
+> Randomization: yes   
+> 10% condition: yes, we are sampling less than 10% of all possible matches this player could play   
+> Success/failure: both proportions are over 10   
+
+* Interpret your confidence interval
+
+> We are 95% confident that the true proportion of green decks this playerp plays is between `r (p-moe)*100`% and `r (p+moe)*100`%
+
+* What sample size would you need to say with 95% confidence that true proportion lies within a plus/minus 0.01 range?
+
+> $0.01 = 1.96 \times \sqrt{\frac{`r p` \times `r q`}{n}}$
+
+> $0.01 \times \sqrt{n} = 1.96 \times \sqrt{`r p` \times `r q`}$
+
+> $\sqrt{n} = \frac{1.96 \times \sqrt{`r p` \times `r q`}}{0.01}$
+
+> ???
+
+### Q2b: Trophy rate
+
+* Find the 90% confidence interval of the proportion of decks that received a trophy
+
+```{r q2b}
+trophy.data <- mtga.results %>% 
+   summarize(count.t = sum(grepl("x", Trophy)),
+             size = n())
+
+p <- trophy.data$count.t[1] / trophy.data$size
+q <- 1-p
+n <- trophy.data[1]
+se <- round(sqrt(p*q / n), digits=4)
+moe <- round(qnorm(0.975) * se, digits=4)
+```
+
+> Formula: $p\pm z^*\times SE$ or $`r p`\pm 1.64\times \sqrt{\frac{`r p`\times`r q`}{`r n`}}$
+
+> $`r p` - 1.64 \times `r se`, `r p` + 1.64 \times `r se`$
+
+> $`r p - moe`, `r p + moe`$
+
+* Check the conditions of the confidence interval
+
+> Independence: yes, seems so 
+> Randomization: yes  
+> 10% condition: yes, we are sampling less than 10% of all possible matches this player could play   
+> Success/failure: both p and q are over 10   
+
+* Interpret your confidence interval
+
+> We are 90% confident that the true proportion of this player's trophy rate is between 0% and `r (p+moe)*100`%
+
+> Note: confidence interval has a lower bound at 0, so when stating your results make sure to note this
+
+* What would be a specific situation or application for which you would prefer greater certainty and therefore select a 99% confidence interval for this calculation?
+
+> Answers may vary here but, for example, if the coach was estimating the chance the player could quit his/her job and become a professional. The player may be risk adverse and therefore only wish to quit that person's job if the odds of not being a failure could be excluded. You must provide some justification for why a researcher on this question would be interested in making it harder to reject the null hypothesis.
+
+### Q2c: Number of wins at Diamond rank
+
+* Make a histogram of the number of wins per deck when the player is at Diamond rank - what does this histogram indicate about the suitability of the data for making a confidence interval of number of wins?
+
+```{r q2c1}
+diamond.results <- mtga.results %>% 
+  filter(grepl("Diamond", End.Rank))
+
+ggplot(diamond.results, aes(x=W)) +
+  geom_histogram(fill="blue4", color="black") +
+  labs(x="Wins", y="Count", title="Wins at Diamond Rank")
+```
+
+> The distribution of wins is somewhat bimodal with a right skew. However, since the sample size is over 100, according to the Central Limit Theorem, the shape of the distribution will not affect our calculation of the hypothesis test.
+
+* Find the 95% confidence interval of the number of wins - calculate this by hand
+
+```{r q2c2}
+diamond.data <- diamond.results %>% 
+   summarize(mean.wins = mean(W),
+             size = n(),
+             sd.sample = sd(W))
+
+mean.est <- round(diamond.data$mean.wins[1])
+sd.sample <- round(diamond.data$sd.sample[1])
+n <- diamond.data$size[1]
+se <- round(diamond.data$sd.sample[1] / sqrt(n), digits=2)
+crit.value <- round(qt(0.975, df=n-1), digits=2)
+moe <- round(qt(0.975, df=n-1) * se, digits=2)
+```
+
+> Formula: $\hat{price_{mean}}\pm t_{n-1}^*\times SE$ or $`r mean.est`\pm `r crit.value`\times \frac{`r sd.sample`}{\sqrt{`r n`}}$
+
+> $`r mean.est` - `r crit.value` \times `r se`, `r mean.est` + `r crit.value` \times `r se`$
+
+> $`r mean.est - moe`, `r mean.est + moe`$
+
+* Check the conditions of the confidence interval
+
+> Conditions: Randomization/Independence, Nearly normal  
+
+> Randomization, yes, Nearly normal, not really but due to CLT, is ok
+
+* Interpret your confidence interval
+
+> We are 95% confident that the true mean number of wins at diamond rank for this player is between `r mean.est - moe` and `r mean.est + moe`
+
+* How much larger would $n$ have to be to decrease by a factor of four the size of your confidence interval?
+
+> It would have to be 16 times larger. The size of the confidence interval decreases according to the square of the sample size.
+
+* Practically speaking, what does this confidence interval indicate - what can we understand about the average number of wins when at diamond rank?
+
+> Answers may vary, but must make some statement beyond simply restating the confidence interval - something like the average number of wins is relatively narrow/large or some statement about the player capabilities.
+
+### Q2d: Bootstrapping wins at Diamond rank
+
+* Using the existing data, create a 95% bootstrapped confidence interval for the number of wins at diamond rank and show the code you used to create the bootstrapped confidence interval
+
+```{r q2d, echo=TRUE}
+library(infer)
+
+diamond.wins.ci <- diamond.results %>% 
+  specify(response=W) %>% 
+  generate(reps=100000, type="bootstrap") %>% 
+  calculate(stat="mean") %>% 
+  get_confidence_interval(level = 0.95, type = "percentile")
+
+kable(diamond.wins.ci, col.names = c("Lower Bound", "Upper Bound"))
+```
+
+* Compare the results of the bootstrapped confidence interval (with 100000 samples) to you calculated by hand in Q2c - what can you conclude from the difference?
+
+> The values are fairly similar (only off by a small amount); likely because the original sample met the conditions for confidence intervals. It also indicates that bootstrapping also works well to create confidence intervals.
+
+* When would using the bootstrap method be helpful? When would the regular confidence interval be more useful?
+
+> The bootstrap method may be more helpful if our data does not meet some of the conditions of confidence intervals. If the data meet the conditions for using a mathematical method for calculating confidence intervals, using it may be faster and more theoretically accurate than bootstrapping.
+
+## Q3: Hypothesis testing (25 points)
+
+### Q3a Proportion of decks for each color in `STX`
+
+* Make a table and write out a specific hypothesis, fully specified, as to whether the proportion of decks that this player has played that each color in `STX` is different or not than the overall population of 17Lands users. 
+
+```{r q3a}
+hyp.table <- data.frame(matrix(ncol=2, nrow=0))
+header <- c("Null Hypothesis", "Alternative Hypothesis")
+
+w.hyp <- c("$Pr(Player_W)=Pr(Pop_W)$", "$Pr(Player_W)\neqPr(Pop_W)$")
+b.hyp <- c("$Pr(Player_B)=Pr(Pop_B)$", "$Pr(Player_B)\neqPr(Pop_B)$")
+u.hyp <- c("$Pr(Player_U)=Pr(Pop_U)$", "$Pr(Player_U)\neqPr(Pop_U)$")
+r.hyp <- c("$Pr(Player_R)=Pr(Pop_R)$", "$Pr(Player_R)\neqPr(Pop_R)$")
+g.hyp <- c("$Pr(Player_G)=Pr(Pop_G)$", "$Pr(Player_G)\neqPr(Pop_G)$")
+
+rbind(w.hyp, hyp.table)
+rbind(b.hyp, hyp.table)
+rbind(hyp.table, u.hyp)
+rbind(hyp.table, r.hyp)
+rbind(hyp.table, g.hyp)
+
+kable(hyp.table, col.names = header)
+```
+
+
+* What do you think is a reasonable critical value to select in this case? Choose your own critical value for your hypotheses tests.
+* In this case should you use a one-sided test or two-sided test? 
+
+> Two sided since we don't have any reason to be only interested in errors in one direction
+
+* Do these test pass the conditions for a hypothesis test?
+* Find the $p$ value for the difference for each color and interpret it with respect to your hypotheses tests.
+* What are, if any, the problems with analyzing the results of five simultaneous hypotheses tests like this?
+
+
+
+> **NOTE**: there is an outlier in price; points are deducted if you do not catch that there is a clear mistake value in price; the calculations below will be wrong if you do not account for this  
+> **ALWAYS** view the distribution of your variables if you are getting weird values
+
+```{r}
+ggplot(used.cars, aes(x=price)) +
+  geom_histogram(fill="blue4", color="black") +
+  labs(xlab="Price", y="Count")
+
+used.cars <- used.cars %>% 
+  filter(price < 1000000)
+```
+
+* Write out a specific hypothesis, fully specified with correct notation, as to whether the price of cars painted red are different from the population mean price.
+
+> $H_0: \mu = `r round(mean(used.cars$price, na.rm=TRUE))`$, $H_a: \mu \neq `r round(mean(used.cars$price, na.rm=TRUE))`$
+
+* If we observed that the price of red cars is different from the population mean at $p$=0.06, should we reject the null hypothesis? Why or why not?
+
+> Without a cutoff p value, we can't really say.
+
+* In this case, is it more appropriate to use a one-sided or two-sided test?
+
+> Two sided since we don't have any reason to be only interested in errors in one direction
+
+* Does this test pass the conditions for hypothesis testing? 
+
+> Randomization, Independence: if the red cars are sampled randomly, yes  
+> 10% Condition: If the appropriate sample size is chosen
+> Nearly normal condition: depends on the sample
+
+* Sample 75 red cars and test the conditions for hypothesis testing.
+
+```{r}
+red.cars.75 <- used.cars %>% 
+  filter(paint_color=="red") %>% 
+  slice_sample(n=75)
+
+ggplot(red.cars.75, aes(x=price)) +
+  geom_histogram(color="black", fill="blue4") +
+  labs(x="Price", y="Count")
+```
+
+> Randomization, Independence: Yes
+> 10% Condition: Yes
+> Nearly normal condition: According to the CLT, yes
+
+* Find the $p$ value for the difference between your sample and the population mean. What can you conclude?
+
+```{r}
+mean.all <- round(mean(used.cars$price))
+mean.sample <- round(mean(red.cars.75$price))
+
+sd.sample <- round(sd(red.cars.75$price))
+n.sample <- length(red.cars.75$price)
+
+se <- sd.sample / sqrt(n.sample)
+t.distance <- round((mean.sample-mean.all) / se, digits=3)
+p.value <- round(pt(t.distance, df=n.sample-1), digits=3)
+```
+
+> ((`r mean.sample`-`r mean.all`)/(`r sd.sample`/sqrt(`r n.sample`))) -> about `r t.distance`
+
+> pt(`r t.distance`, df=`r n.sample - 1`) = `r p.value`; `r p.value`*2 = p = `r p.value*2`
+
+> We can reject the null hypothesis of no difference at a 0.05 level
+
+* What might be some possible lurking variables that might cause this difference (or non difference)? It is ok to speculate but try to be sensible.
+
+> Answers may vary, seems likely that expensive sports cars are mostly painted red while average cars are painted in a darker color.
+
+### Q4b Used cars from 2008
+
+* Write out a specific hypothesis, fully specified, as to whether the proportion of cars made in 2008 for sale that are SUVs are different than the number of SUVs sold overall. 
+
+```{r}
+kable(table(used.cars$type), col.names = c("Car Type", "Freq"))
+
+type.data <- used.cars %>% 
+   summarize(pct.SUV = mean(type == "SUV"))
+
+p.all <- type.data$pct.SUV[1]
+```
+
+> $H_0: \mu = `r round(p.all, digits=3)`$, $H_a: \mu \neq `r round(p.all, digits=3)`$
+
+* What do you think is a reasonable critical value to select in this case? Choose your own critical value for your hypothesis test.
+
+> Absent any other information, a critical value of 1.96 seems reasonable. We don't have a need to have a very strict or very loose test
+
+* In this case should you use a one-sided test or two-sided test? 
+
+> Probably a two sided test, there is no reason to suspect that year would be necessarily higher or lower
+
+* Does this test pass the conditions for a hypothesis test?
+
+> Randomization, Independence: if the red cars are sampled randomly, yes  
+> 10% Condition: If the appropriate sample size is chosen
+> Sucess/failure condition: depends on the sample
+
+* Sample 65 cars from 2008 and test the conditions for hypothesis testing
+
+```{r}
+cars.2008.65 <- used.cars %>% 
+  filter(year==2008) %>% 
+  slice_sample(n=65)
+
+kable(table(cars.2008.65$type), col.names = c("Car Type", "Freq"))
+```
+
+> Randomization, Independence: Yes  
+> 10% Condition: Yes
+> Sucess/failure condition: Yes
+
+* Find the $p$ value for the difference and interpret it with respect to your hypothesis test.
+
+```{r}
+cars.2008.data <- cars.2008.65 %>% 
+   summarize(pct.SUV = mean(type == "SUV"),
+             size = n())
+
+p.sample <- round(cars.2008.data$pct.SUV[1], digits=3)
+q.sample <- 1-p.sample
+n.sample <- cars.2008.data$size[1]
+se.sample <- round(sqrt(p.sample*(1-p.sample)/n.sample), digits=3)
+
+z.distance.full <- (cars.2008.data$pct.SUV[1]-type.data$pct.SUV[1]) / sqrt(p.sample*(1-p.sample)/n.sample)
+z.distance <- round(z.distance.full, digits=3)
+p.value <- round(pnorm(z.distance), digits=3)
+```
+
+> ((`r p.sample`-`r p.all`)/(sqrt(`r p.sample`*`r q.sample`/`r n.sample`))) -> about `r z.distance`
+
+> pnorm(`r z.distance`) = `r 1-p.value`; `r 1-p.value`*2 = p = `r (1-p.value)*2`
+
+> We cannot reject the null hypothesis of no difference at a 0.05 level
+
+* What might be some possible lurking variables that might cause this difference (or non difference)? It is ok to speculate but try to be sensible.
+
+> There was a large economic recession in 2008; perhaps buyer's decisions about vehicle type may have changed that year. Other sensible guesses are ok.
+
+## Q5: Hypothesis testing wisdom (25 points)
+
+### Q5a Ford cars
+
+```{r}
+null.price <- mean(used.cars$price)
+```
+
+* Write out the hypothesis for whether the price of Ford cars is different than the population mean
+
+> $H_0: \mu = `r round(null.price)`$, $H_a: \mu \neq `r round(null.price)`$
+
+* If we reject the null hypothesis in this case, does that mean that the null hypothesis is true? Why?
+
+> A type I: null is true but we mistakenly reject it. We conclude that the price of Ford cars is different than the overall population but it is actually the same  
+> A type II: the alternative is true but we mistakenly fail to reject the null hypothesis. We do not conclude there is a difference in prices when there actually is one.
+
+* In your opinion, what $p$ value would you need to see to reject the null hypothesis
+
+> Answers may vary but 0.05 is a reasonable starting point
+
+* Based on the previous question, what would you set the alpha level to?
+
+> We could decrease the alpha value or increase the sample size. Increasing the sample size costs money.
+
+* Let's say the data suggests that you should reject the null hypothesis. What size of difference in price would you need to see to feel there is a *practically* significant difference? 
+
+> Answers may vary but for me maybe $500
+
+* Sample 100 Ford cars. By hand (show work), calculate your hypothesis test and interpret the results.
+
+```{r}
+ford.cars.100 <- used.cars %>% 
+  filter(manufacturer=="ford") %>% 
+  slice_sample(n=100)
+
+mean.all <- round(mean(used.cars$price))
+mean.sample <- round(mean(ford.cars.100$price))
+
+sd.sample <- round(sd(ford.cars.100$price))
+n.sample <- length(ford.cars.100$price)
+
+se <- sd.sample / sqrt(n.sample)
+t.distance <- round((mean.sample-mean.all) / se, digits=3)
+p.value <- round(pt(t.distance, df=n.sample-1), digits=3)
+```
+
+> ((`r mean.sample`-`r mean.all`)/(`r sd.sample`/sqrt(`r n.sample`))) -> about `r t.distance`
+
+> pt(`r t.distance`, df=`r n.sample - 1`) = `r 1-p.value`; `r 1-p.value`*2 = p = `r (1-p.value)*2`
+
+> We can reject the null hypothesis of no difference at a 0.05 level
+
+### Q5b Ford car types
+
+```{r}
+used.cars <- used.cars %>% 
+  mutate(heavy = ifelse(type=="pickup" | type=="SUV" | type=="truck", 1, 0))
+
+heavy.pct <- round(mean(used.cars$heavy, na.rm=TRUE), digits=3)
+
+kable(paste(heavy.pct*100, "%"), col.names="Population Heavy Pct")
+```
+
+* Write out the hypothesis for whether the Ford produces **more** heavy autos than other auto makers (heavy autos are defined as `type` of `pickup`, `SUV`, and `truck`) as a 95% test
+
+> $H_0: \mu = `r round(heavy.pct, digits=3)`$, $H_a: \mu > `r round(heavy.pct, digits=3)`$
+
+* Explain what the difference between a Type I and a Type II error is here
+
+> A type I: null is true but we mistakenly reject it. We conclude that the percentage of heavy vehicles by Ford is different from the population when it is actually the same
+> A type II: the alternative is true but we mistakenly fail to reject the null hypothesis. We do not conclude there is a difference in vehicle type when there actually is one.
+
+* Which do you think would be more serious for a used car sales company analyzing the used car market? Why?
+
+> Answers may vary. It isn't obvious which is worse so any answer with a reasonable justification is ok.
+
+* What are two ways we could reduce the possibility of a Type I error? What are the reasons we may not take those actions to reduce the error?
+
+> We could increase the sample size or increase the power of the test by increasing alpha. Increasing the power of the test results in a greater chance of a Type I error. Increasing the sample size may increase the cost of the study.
+
+* What is the power of the test?
+
+> The power is $1-\beta$, where $\beta$ is the probability of committing a Type II error
+
+* How large would a difference have to be to 'matter' in the context of being a statistician at an auto dealer?
+
+> It depends on the specific dealer, etc. but I would consider something around 5% to start to be meaningful.
+
+* Take a new sample of 100 Ford cars. By hand (show work), calculate your hypothesis test and interpret the results. 
+
+```{r}
+ford.cars.100 <- used.cars %>% 
+  filter(manufacturer=="ford") %>% 
+  slice_sample(n=100)
+
+p.all <- round(mean(used.cars$heavy, na.rm=TRUE), digits=3)
+p.sample <- round(mean(ford.cars.100$heavy, na.rm=TRUE), digits=3)
+
+n.sample <- length(ford.cars.100$heavy)
+
+se <- sqrt(p.sample * (1-p.sample) / n.sample)
+z.distance <- round((p.sample-p.all) / se, digits=3)
+p.value <- round(pnorm(z.distance), digits=3)
+```
+
+> ((`r p.sample`-`r p.all`)/(`r p.sample * (1-p.sample)`/sqrt(`r n.sample`))) -> about `r z.distance`
+
+> pnorm(`r z.distance`) = `r round(1-p.value, digits=3)`
+
+> We can reject the null hypothesis of no difference at a 0.05 level
+
+## Q6: Putting it all together (25 points)
+
+Through the analysis above **and** your own additional analysis, write two to three paragraphs outlining what you think are the main things we learned through our analysis of used car prices. What information are we missing in this dataset that we would need to truly understand used car prices?
+
+> Answers will vary
